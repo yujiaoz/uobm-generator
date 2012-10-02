@@ -2,7 +2,7 @@ package uobm;
 
 public class Interest {
 
-	public static final String[] INTEREST_TOKEN = {
+	public static final String[] TOKEN = {
         "Classic_Music",
         "Pop_Music",
         "Rock_and_Roll",

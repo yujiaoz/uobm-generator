@@ -7,9 +7,13 @@ public class Department {
 	int facultyNum, groupNum;
 	int professorNum, assoProfNum, asstProfNum, lecturerNum, vistProfNum;
 	int underStudNum, gradStudNum; 
+	int publicationNum;
 	LinkedList<Integer> underCourses, gradCourses, restUnderCourses, restGradCourses;
+	
+	Writer m_writer;
+	int m_chair;
 		
-	public Department() {
+	public Department(Generator g) {
 		groupNum = Lib.getRandomFromRange(Class.RESEARCHGROUP_MIN, Class.RESEARCHGROUP_MAX);
 
 		/*
@@ -22,6 +26,7 @@ public class Department {
 		
 		facultyNum = professorNum + assoProfNum + asstProfNum + lecturerNum;
 		vistProfNum = Lib.getRandomFromRange(Class.VISTPROF_MIN, Class.VISTPROF_MAX);
+		
 		
 		/*
 		 * the number of students
@@ -40,6 +45,11 @@ public class Department {
 			restUnderCourses.add(i);
 		for (int i = 0; i < Class.GRAD_COURSE_NUM; ++i)
 			restGradCourses.add(i);
+		
+		m_writer = new OwlWriter(g);
+		m_chair = Lib.getRandomFromRange(0, professorNum);
+		
+		//TODO: publications
 	}
 	
 }

@@ -2,7 +2,7 @@ package uobm;
 
 public class AcademicSubject {
 
-	public static final String[] subjectToken = {
+	public static final String[] TOKEN = {
 		"Aeronautical_Engineering", 
 		"Biomedical_Engineering",  
 		"Chemical_Engineering", 

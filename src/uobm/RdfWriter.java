@@ -100,7 +100,7 @@ public abstract class RdfWriter implements Writer {
   public void startSection(int classType, String id) {
     generator.startSectionCB(classType);
     out.println();
-    String s = "<" + T_ONTO_PREFIX + Generator.CLASS_TOKEN[classType] + T_SPACE +
+    String s = "<" + T_ONTO_PREFIX + Class.TOKEN[classType] + T_SPACE +
         T_RDF_ABOUT + "=\"" + id + "\">";
     out.println(s);
   }
@@ -111,7 +111,7 @@ public abstract class RdfWriter implements Writer {
   public void startAboutSection(int classType, String id) {
     generator.startAboutSectionCB(classType);
     out.println();
-    String s = "<" + T_ONTO_PREFIX + Generator.CLASS_TOKEN[classType] + T_SPACE +
+    String s = "<" + T_ONTO_PREFIX + Class.TOKEN[classType] + T_SPACE +
         T_RDF_ABOUT + "=\"" + id + "\">";
     out.println(s);
   }
@@ -120,7 +120,7 @@ public abstract class RdfWriter implements Writer {
    * Implementation of Writer:endSection.
    */
   public void endSection(int classType) {
-    String s = "</" + T_ONTO_PREFIX + Generator.CLASS_TOKEN[classType] + ">";
+    String s = "</" + T_ONTO_PREFIX + Class.TOKEN[classType] + ">";
     out.println(s);
   }
 
@@ -132,12 +132,12 @@ public abstract class RdfWriter implements Writer {
 
     String s;
     if (isResource) {
-      s = "   <" + T_ONTO_PREFIX + Generator.PROP_TOKEN[property] + T_SPACE +
+      s = "   <" + T_ONTO_PREFIX + Property.TOKEN[property] + T_SPACE +
           T_RDF_RES + "=\"" + value + "\" />";
     }
     else { //literal
-      s = "   <" + T_ONTO_PREFIX + Generator.PROP_TOKEN[property] + ">" + value +
-          "</" + T_ONTO_PREFIX + Generator.PROP_TOKEN[property] + ">";
+      s = "   <" + T_ONTO_PREFIX + Property.TOKEN[property] + ">" + value +
+          "</" + T_ONTO_PREFIX + Property.TOKEN[property] + ">";
     }
 
     out.println(s);
@@ -151,10 +151,10 @@ public abstract class RdfWriter implements Writer {
     generator.addValueClassCB(valueClass);
 
     String s;
-    s = "   <" + T_ONTO_PREFIX + Generator.PROP_TOKEN[property] + ">\n" +
-        "      <" + T_ONTO_PREFIX + Generator.CLASS_TOKEN[valueClass] + T_SPACE +
+    s = "   <" + T_ONTO_PREFIX + Property.TOKEN[property] + ">\n" +
+        "      <" + T_ONTO_PREFIX + Property.TOKEN[valueClass] + T_SPACE +
         T_RDF_ABOUT + "=\"" + valueId + "\" />" +
-        "   </" + T_ONTO_PREFIX + Generator.PROP_TOKEN[property] + ">";
+        "   </" + T_ONTO_PREFIX + Property.TOKEN[property] + ">";
 
     out.println(s);
   }

@@ -6,301 +6,6 @@ import java.io.*;
 
 public class Generator {
 
-  ///////////////////////////////////////////////////////////////////////////
-  //ontology class information
-  //NOTE: prefix "CS" was used because the predecessor of univ-bench ontology
-  //is called cs ontolgy.
-  ///////////////////////////////////////////////////////////////////////////
-  /** n/a */
-  static final int CS_C_NULL = -1;
-  /** University */
-  static final int CS_C_UNIV = 0;
-  /** College */
-  static final int CS_C_COLL = CS_C_UNIV + 1;
-  /** Department */
-  static final int CS_C_DEPT = CS_C_COLL + 1;
-  /** Person */
-  static final int CS_C_PERSON = CS_C_DEPT + 1;
-  /** Man */
-  static final int CS_C_MAN = CS_C_PERSON + 1;
-  /** Woman */
-  static final int CS_C_WOMAN = CS_C_MAN + 1;
-  /** Faculty */
-  static final int CS_C_FACULTY = CS_C_WOMAN + 1;
-  /** Professor */
-  static final int CS_C_PROF = CS_C_FACULTY + 1;
-  /** FullProfessor */
-  static final int CS_C_FULLPROF = CS_C_PROF + 1;
-  /** AssociateProfessor */
-  static final int CS_C_ASSOPROF = CS_C_FULLPROF + 1;
-  /** AssistantProfessor */
-  static final int CS_C_ASSTPROF = CS_C_ASSOPROF + 1;
-  /** VistingProfessor */
-  //static final int CS_C_VISTPROF = CS_C_ASSTPROF + 1;
-  /** Lecturer */
-  static final int CS_C_LECTURER = CS_C_ASSTPROF + 1;
-  /** Student */
-  static final int CS_C_STUDENT = CS_C_LECTURER + 1;
-  /** UndergraduateStudent */
-  static final int CS_C_UNDERSTUD = CS_C_STUDENT + 1;
-  /** GraduateStudent */
-  static final int CS_C_GRADSTUD = CS_C_UNDERSTUD + 1;
-  /** TeachingAssistant */
-  static final int CS_C_TA = CS_C_GRADSTUD + 1;
-  /** ResearchAssistant */
-  static final int CS_C_RA = CS_C_TA + 1;
-  /** Course */
-  static final int CS_C_COURSE = CS_C_RA + 1;
-  /** GraduateCourse */
-  static final int CS_C_GRADCOURSE = CS_C_COURSE + 1;
-  /** Publication */
-  static final int CS_C_PUBLICATION = CS_C_GRADCOURSE + 1;
-  /** Chair */
-  static final int CS_C_CHAIR = CS_C_PUBLICATION + 1;
-  /** Dean */
-  static final int CS_C_DEAN = CS_C_CHAIR + 1;
-  /** Research */
-  static final int CS_C_RESEARCH = CS_C_DEAN + 1;
-  /** ResearchGroup */
-  static final int CS_C_RESEARCHGROUP = CS_C_RESEARCH + 1;
-  /** class information */
-  static final int[][] CLASS_INFO = {
-      /*{instance number if not specified, direct super class}*/
-      //NOTE: the super classes specifed here do not necessarily reflect the entailment of the ontology
-      {2, CS_C_NULL}, //
-      {0, CS_C_NULL}, //CS_C_COLL
-      {1, CS_C_NULL}, //CS_C_DEPT
-      {0, CS_C_NULL}, //CS_C_PERSON
-      {0, CS_C_PERSON}, //CS_C_MAN
-      {0, CS_C_PERSON}, //CS_C_WOMAN
-      {0, CS_C_PERSON}, //CS_C_FACULTY
-      {0, CS_C_FACULTY}, //CS_C_PROF
-      {0, CS_C_PROF}, //CS_C_FULLPROF
-      {0, CS_C_PROF}, //CS_C_ASSOPROF
-      {0, CS_C_PROF}, //CS_C_ASSTPROF
-      {0, CS_C_FACULTY}, //CS_C_LECTURER
-      {0, CS_C_PERSON}, //CS_C_STUDENT
-      {0, CS_C_STUDENT}, //CS_C_UNDERSTUD
-      {0, CS_C_STUDENT}, //CS_C_GRADSTUD
-      {0, CS_C_NULL}, //CS_C_TA
-      {0, CS_C_NULL}, //CS_C_RA
-      {0, CS_C_NULL}, //CS_C_COURSE, treated as undergrad course here
-      {0, CS_C_NULL}, //CS_C_GRADCOURSE
-      {0, CS_C_NULL}, //CS_C_PUBLICATION
-      {0, CS_C_NULL}, //CS_C_CHAIR
-      {0, CS_C_PROF}, //CS_C_DEAN
-      {0, CS_C_NULL}, //CS_C_RESEARCH
-      {0, CS_C_NULL} //CS_C_RESEARCHGROUP
-  };
-  /** class name strings */
-  static final String[] CLASS_TOKEN = {
-      "University", //CS_C_UNIV
-      "College", //CS_C_COLL
-      "Department", //CS_C_DEPT
-      "Person", //CS_C_PERSON
-      "Man", //CS_C_DEPT
-      "Woman", //CS_C_DEPT
-      "Faculty", //CS_C_FACULTY
-      "Professor", //CS_C_PROF
-      "FullProfessor", //CS_C_FULLPROF
-      "AssociateProfessor", //CS_C_ASSOPROF
-      "AssistantProfessor", //CS_C_ASSTPROF
-      "VistingProfessor", //CS_C_VISTPROF
-      "Lecturer", //CS_C_LECTURER
-      "Student", //CS_C_STUDENT
-      "UndergraduateStudent", //CS_C_UNDERSTUD
-      "GraduateStudent", //CS_C_GRADSTUD
-      "TeachingAssistant", //CS_C_TA
-      "ResearchAssistant", //CS_C_RA
-      "Course", //CS_C_COURSE
-      "GraduateCourse", //CS_C_GRADCOURSE
-      "Publication", //CS_C_PUBLICATION
-      "Chair", //CS_C_CHAIR
-      "Dean", //CS_C_DEAN
-      "Research", //CS_C_RESEARCH
-      "ResearchGroup" //CS_C_RESEARCHGROUP
-  };
-  /** number of classes */
-  static final int CLASS_NUM = CLASS_INFO.length;
-  /** index of instance-number in the elements of array CLASS_INFO */
-  static final int INDEX_NUM = 0;
-  /** index of super-class in the elements of array CLASS_INFO */
-  static final int INDEX_SUPER = 1;
-
-  ///////////////////////////////////////////////////////////////////////////
-  //ontology property information
-  ///////////////////////////////////////////////////////////////////////////
-  /** name */
-  static final int CS_P_NAME = 0;
-  /** takesCourse */
-  static final int CS_P_TAKECOURSE = CS_P_NAME + 1;
-  /** teacherOf */
-  static final int CS_P_TEACHEROF = CS_P_TAKECOURSE + 1;
-  /** undergraduateDegreeFrom */
-  static final int CS_P_UNDERGRADFROM = CS_P_TEACHEROF + 1;
-  /** mastersDegreeFrom */
-  static final int CS_P_GRADFROM = CS_P_UNDERGRADFROM + 1;
-  /** doctoralDegreeFrom */
-  static final int CS_P_DOCFROM = CS_P_GRADFROM + 1;
-  /** advisor */
-  static final int CS_P_ADVISOR = CS_P_DOCFROM + 1;
-  /** memberOf */
-  static final int CS_P_MEMBEROF = CS_P_ADVISOR + 1;
-  /** publicationAuthor */
-  static final int CS_P_PUBLICATIONAUTHOR = CS_P_MEMBEROF + 1;
-  /** headOf */
-  static final int CS_P_HEADOF = CS_P_PUBLICATIONAUTHOR + 1;
-  /** teachingAssistantOf */
-  static final int CS_P_TAOF = CS_P_HEADOF + 1;
-  /** reseachAssistantOf */
-  static final int CS_P_RESEARCHINTEREST = CS_P_TAOF + 1;
-  /** emailAddress */
-  static final int CS_P_EMAIL = CS_P_RESEARCHINTEREST + 1;
-  /** telephone */
-  static final int CS_P_TELEPHONE = CS_P_EMAIL + 1;
-  /** subOrganizationOf */
-  static final int CS_P_SUBORGANIZATIONOF = CS_P_TELEPHONE + 1;
-  /** worksFor */
-  static final int CS_P_WORKSFOR = CS_P_SUBORGANIZATIONOF + 1;
-  
-  static final int CS_P_MAJOR = CS_P_WORKSFOR + 1;
-  static final int CS_P_SAMEHOMETOWN = CS_P_MAJOR + 1;
-  static final int CS_P_FRIENDOF = CS_P_SAMEHOMETOWN + 1;
-  static final int CS_P_LIKE = CS_P_FRIENDOF + 1;
-  static final int CS_P_LOVE = CS_P_LIKE + 1;
-  static final int CS_P_CRAZYABOUT = CS_P_LOVE + 1;
-  static final int CS_P_STUDENTOF = CS_P_CRAZYABOUT + 1;
-  static final int CS_P_ENROLLIN = CS_P_STUDENTOF + 1;
-  
-  /** property name strings */
-  static final String[] PROP_TOKEN = {
-      "name",
-      "takesCourse",
-      "teacherOf",
-      "undergraduateDegreeFrom",
-      "mastersDegreeFrom",
-      "doctoralDegreeFrom",
-      "isAdvisedBy",
-      "isMemberOf",
-      "publicationAuthor",
-      "isHeadOf",
-      "teachingAssistantOf",
-      "researchInterest",
-      "emailAddress",
-      "telephone",
-      "subOrganizationOf",
-      "worksFor", 
-      "hasMajor", 
-      "hasSameHomeTownWith", 
-      "isFriendOf", 
-      "like", 
-      "love",
-      "isCrazyAbout", 
-      "isStudentOf", 
-      "enrollIn"
-  };
-  /** number of properties */
-  static final int PROP_NUM = PROP_TOKEN.length;
-
-  ///////////////////////////////////////////////////////////////////////////
-  //restrictions for data generation
-  ///////////////////////////////////////////////////////////////////////////
-  /** size of the pool of the undergraduate courses for one department */
-  private static final int UNDER_COURSE_NUM = 100; //must >= max faculty # * FACULTY_COURSE_MAX
-  /** size of the pool of the graduate courses for one department */
-  private static final int GRAD_COURSE_NUM = 100; //must >= max faculty # * FACULTY_GRADCOURSE_MAX
-  /** size of the pool of universities */
-  private static final int UNIV_NUM = 1000;
-  /** size of the pool of reasearch areas */
-  private static final int RESEARCH_NUM = 30;
-  /** minimum number of colleges in a university */
-  private static final int COLL_MIN = 15;
-  /** maximum number of colleges in a university */
-  private static final int COLL_MAX = 25;
-  /** minimum number of departments in a university */
-  private static final int DEPT_MIN = 15;
-  /** maximum number of departments in a university */
-  private static final int DEPT_MAX = 25;
-  //must: DEPT_MAX - DEPT_MIN + 1 <> 2 ^ n
-  /** minimum number of publications of a full professor */
-  private static final int FULLPROF_PUB_MIN = 15;
-  /** maximum number of publications of a full professor */
-  private static final int FULLPROF_PUB_MAX = 20;
-  /** minimum number of publications of an associate professor */
-  private static final int ASSOPROF_PUB_MIN = 10;
-  /** maximum number of publications of an associate professor */
-  private static final int ASSOPROF_PUB_MAX = 18;
-  /** minimum number of publications of an assistant professor */
-  private static final int ASSTPROF_PUB_MIN = 5;
-  /** maximum number of publications of an assistant professor */
-  private static final int ASSTPROF_PUB_MAX = 10;
-  /** minimum number of publications of a graduate student */
-  private static final int GRADSTUD_PUB_MIN = 0;
-  /** maximum number of publications of a graduate student */
-  private static final int GRADSTUD_PUB_MAX = 5;
-  /** minimum number of publications of a lecturer */
-  private static final int LEC_PUB_MIN = 0;
-  /** maximum number of publications of a lecturer */
-  private static final int LEC_PUB_MAX = 5;
-  /** minimum number of courses taught by a faculty */
-  private static final int FACULTY_COURSE_MIN = 1;
-  /** maximum number of courses taught by a faculty */
-  private static final int FACULTY_COURSE_MAX = 2;
-  /** minimum number of graduate courses taught by a faculty */
-  private static final int FACULTY_GRADCOURSE_MIN = 1;
-  /** maximum number of graduate courses taught by a faculty */
-  private static final int FACULTY_GRADCOURSE_MAX = 2;
-  /** minimum number of courses taken by a undergraduate student */
-  private static final int UNDERSTUD_COURSE_MIN = 2;
-  /** maximum number of courses taken by a undergraduate student */
-  private static final int UNDERSTUD_COURSE_MAX = 4;
-  /** minimum number of courses taken by a graduate student */
-  private static final int GRADSTUD_COURSE_MIN = 1;
-  /** maximum number of courses taken by a graduate student */
-  private static final int GRADSTUD_COURSE_MAX = 3;
-  /** minimum number of research groups in a department */
-  private static final int RESEARCHGROUP_MIN = 10;
-  /** maximum number of research groups in a department */
-  private static final int RESEARCHGROUP_MAX = 20;
-  //faculty number: 30-42
-  /** minimum number of full professors in a department*/
-  private static final int FULLPROF_MIN = 7;
-  /** maximum number of full professors in a department*/
-  private static final int FULLPROF_MAX = 10;
-  /** minimum number of associate professors in a department*/
-  private static final int ASSOPROF_MIN = 10;
-  /** maximum number of associate professors in a department*/
-  private static final int ASSOPROF_MAX = 14;
-  /** minimum number of assistant professors in a department*/
-  private static final int ASSTPROF_MIN = 8;
-  /** maximum number of assistant professors in a department*/
-  private static final int ASSTPROF_MAX = 11;
-  /** minimum number of lecturers in a department*/
-  private static final int LEC_MIN = 5;
-  /** maximum number of lecturers in a department*/
-  private static final int LEC_MAX = 7;
-  /** minimum ratio of undergraduate students to faculties in a department*/
-  private static final int R_UNDERSTUD_FACULTY_MIN = 8;
-  /** maximum ratio of undergraduate students to faculties in a department*/
-  private static final int R_UNDERSTUD_FACULTY_MAX = 14;
-  /** minimum ratio of graduate students to faculties in a department*/
-  private static final int R_GRADSTUD_FACULTY_MIN = 3;
-  /** maximum ratio of graduate students to faculties in a department*/
-  private static final int R_GRADSTUD_FACULTY_MAX = 4;
-  //MUST: FACULTY_COURSE_MIN >= R_GRADSTUD_FACULTY_MAX / R_GRADSTUD_TA_MIN;
-  /** minimum ratio of graduate students to TA in a department */
-  private static final int R_GRADSTUD_TA_MIN = 4;
-  /** maximum ratio of graduate students to TA in a department */
-  private static final int R_GRADSTUD_TA_MAX = 5;
-  /** minimum ratio of graduate students to RA in a department */
-  private static final int R_GRADSTUD_RA_MIN = 3;
-  /** maximum ratio of graduate students to RA in a department */
-  private static final int R_GRADSTUD_RA_MAX = 4;
-  /** average ratio of undergraduate students to undergraduate student advising professors */
-  private static final int R_UNDERSTUD_ADVISOR = 5;
-  /** average ratio of graduate students to graduate student advising professors */
-  private static final int R_GRADSTUD_ADVISOR = 1;
-
   /** delimiter between different parts in an id string*/
   private static final char ID_DELIMITER = '/';
   /** delimiter between name and index in a name string of an instance */
@@ -362,38 +67,19 @@ public class Generator {
     public ArrayList<String> authors;
   }
 
-  /** univ-bench ontology url */
+  /** univ-bench-dl ontology url */
   String ontology;
-  /** (class) instance information */
-  private InstanceCount[] instances_;
-  /** property instance information */
-  private PropertyCount[] properties_;
-  /** data file writer */
-  private Writer writer_;
-  /** generate DAML+OIL data (instead of OWL) */
-  private boolean isDaml_;
-  /** random number generator */
-  private Random random_;
+
   /** seed of the random number genertor for the current university */
   private long seed_ = 0l;
   /** user specified seed for the data generation */
-  private long baseSeed_ = 0l;
-  /** list of undergraduate courses generated so far (in the current department) */
-  private ArrayList<CourseInfo> underCourses_;
-  /** list of graduate courses generated so far (in the current department) */
-  private ArrayList<CourseInfo> gradCourses_;
-  /** list of remaining available undergraduate courses (in the current department) */
-  private ArrayList<Integer> remainingUnderCourses_;
-  /** list of remaining available graduate courses (in the current department) */
-  private ArrayList<Integer> remainingGradCourses_;
-  /** list of publication instances generated so far (in the current department) */
-  private ArrayList<PublicationInfo> publications_;
-  /** index of the full professor who has been chosen as the department chair */
-  private int chair_;
-  /** starting index of the universities */
-  private int startIndex_;
+  private long baseSeed = 0l;
   /** log writer */
   private PrintStream log_ = null;
+  
+  private int univNum;
+  private int startIndex;
+  private University[] universities;
 
   /**
    * main method
@@ -439,9 +125,6 @@ public class Generator {
           else
             throw new NumberFormatException();
         }
-        else if (arg.equals("-daml")) {
-          daml = true;
-        }
         else if (arg.equals("-onto")) {
           if (i < args.length) {
             arg = args[i++];
@@ -478,27 +161,6 @@ public class Generator {
   }
 
   /**
-   * constructor
-   */
-  public Generator() {
-    instances_ = new InstanceCount[CLASS_NUM];
-    for (int i = 0; i < CLASS_NUM; i++) {
-      instances_[i] = new InstanceCount();
-    }
-    properties_ = new PropertyCount[PROP_NUM];
-    for (int i = 0; i < PROP_NUM; i++) {
-      properties_[i] = new PropertyCount();
-    }
-
-    random_ = new Random();
-    underCourses_ = new ArrayList<CourseInfo>();
-    gradCourses_ = new ArrayList<CourseInfo>();
-    remainingUnderCourses_ = new ArrayList<Integer>();
-    remainingGradCourses_ = new ArrayList<Integer>();
-    publications_ = new ArrayList<PublicationInfo>();
-  }
-
-  /**
    * Begins the data generation.
    * @param univNum Number of universities to generate.
    * @param startIndex Starting index of the universities.
@@ -506,20 +168,11 @@ public class Generator {
    * @param daml Generates DAML+OIL data if true, OWL data otherwise.
    * @param ontology Ontology url.
    */
-  public void start(int univNum, int startIndex, int seed, boolean daml,
-                    String ontology) {
+  public void start(int univNum, int startIndex, int seed, boolean daml, String ontology) {
     this.ontology = ontology;
-
-    isDaml_ = daml;
-    if (daml)
-      System.err.println("error");
-    else
-      writer_ = new OwlWriter(this);
-
-    startIndex_ = startIndex;
-    baseSeed_ = seed;
-    instances_[CS_C_UNIV].num = univNum;
-    instances_[CS_C_UNIV].count = startIndex;
+    this.startIndex = startIndex;
+    this.baseSeed = seed;
+    this.univNum = univNum;
     _generate();
     System.out.println("See log.txt for more details.");
   }
@@ -610,27 +263,16 @@ public class Generator {
   private void _generate() {
     System.out.println("Started...");
     
-    int[] numDept = new int [instances_[CS_C_UNIV].num];
-    total = new Specification();
-    for (int i = 0; i < instances_[CS_C_UNIV].num; ++i) {
-    	numDept[i] = _getRandomFromRange(DEPT_MIN, DEPT_MAX);
-    	total.num[CS_C_DEPT] += numDept[i];
-    }
-    
-    int totalDept = total.num[CS_C_DEPT];
-    Specification[] deptSpec = new Specification[totalDept];
-    for (int i = 0; i < totalDept; ++i) {
-    	deptSpec[i] = new Specification();
-    	deptSpec[i].randomGenerate();
-    	total.add(deptSpec[i], CS_C_DEPT + 1);
-    }
+    universities = new University[univNum];
+    for (int i = 0; i < univNum; ++i)
+    	universities[i] = new University(this);
     
     try {
       log_ = new PrintStream(new FileOutputStream(System.getProperty("user.dir") +
                                                  System.getProperty("file.separator") + LOG_FILE));
       writer_.start();
       for (int i = 0, j = 0; i < instances_[CS_C_UNIV].num; i++) {
-    	  _generateUniv(i + startIndex_, numDept[i], deptSpec, j);
+    	  _generateUniv(i + startIndex, numDept[i], deptSpec, j);
     	  j += numDept[i];
       }
       writer_.end();
@@ -648,8 +290,8 @@ public class Generator {
    */
   private void _generateUniv(int index, int deptNum, Specification[] specs, int startIndex) {
     //this transformation guarantees no different pairs of (index, baseSeed) generate the same data
-    seed_ = baseSeed_ * (Integer.MAX_VALUE + 1) + index;
-    random_.setSeed(seed_);
+    seed_ = baseSeed * (Integer.MAX_VALUE + 1) + index;
+    Lib.setSeed(seed_);
 
     //determine department number
     instances_[CS_C_DEPT].num = deptNum;
@@ -1438,7 +1080,7 @@ public class Generator {
     long totalPropInstNum = 0l; //total property instance num so far
     String comment;
 
-    comment = "External Seed=" + baseSeed_ + " Interal Seed=" + seed_;
+    comment = "External Seed=" + baseSeed + " Interal Seed=" + seed_;
     log_.println(comment);
     log_.println();
 

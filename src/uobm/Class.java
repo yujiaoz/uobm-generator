@@ -3,7 +3,7 @@ package uobm;
 public class Class {
 
 	  /** class name strings */
-	  public static final String[] CLASS_TOKEN = {
+	  public static final String[] TOKEN = {
 	      "University", //CS_C_UNIV
 	      "College", //CS_C_COLL
 	      "Department", //CS_C_DEPT
@@ -31,7 +31,7 @@ public class Class {
 	      "ResearchGroup" //CS_C_RESEARCHGROUP
 	  };
 	  /** number of classes */
-	  static final int CLASS_NUM = CLASS_TOKEN.length;
+	  static final int CLASS_NUM = TOKEN.length;
 	  
 	  /** size of the pool of the undergraduate courses for one department */
 	  public static final int UNDER_COURSE_NUM = 100; //must >= max faculty # * FACULTY_COURSE_MAX

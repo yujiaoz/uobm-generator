@@ -3,7 +3,7 @@ package uobm;
 public class Property {
 	
 	  /** property name strings */
-	  static final String[] PROP_TOKEN = {
+	  static final String[] TOKEN = {
 	      "name",
 	      "takesCourse",
 	      "teacherOf",
@@ -30,7 +30,7 @@ public class Property {
 	      "enrollIn"
 	  };
 	  /** number of properties */
-	  static final int PROP_NUM = PROP_TOKEN.length;
+	  static final int PROP_NUM = TOKEN.length;
 	  
 	  /*
 	   * about publication rate
