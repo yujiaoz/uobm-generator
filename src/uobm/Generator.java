@@ -267,6 +267,7 @@ public class Generator {
     for (int i = 0; i < univNum; ++i)
     	universities[i] = new University(this);
     
+    //TODO: I'M HERE
     try {
       log_ = new PrintStream(new FileOutputStream(System.getProperty("user.dir") +
                                                  System.getProperty("file.separator") + LOG_FILE));
