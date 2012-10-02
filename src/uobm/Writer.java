@@ -47,6 +47,7 @@ public interface Writer {
    * @param id Id of the instance.
    */
   public void startSection(int classType, String id);
+  public void startSection(String type, String id);
 
   /**
    * Starts a section for the specified instance identified by an rdf:about attribute.
@@ -54,12 +55,14 @@ public interface Writer {
    * @param id Id of the instance.
    */
   public void startAboutSection(int classType, String id);
+  public void startAboutSection(String type, String id);
 
   /**
    * Finishes the current section.
    * @param classType Type of the current instance.
    */
   public void endSection(int classType);
+  public void endSection(String type);
 
   /**
    * Adds the specified property statement for the current element.
@@ -69,6 +72,7 @@ public interface Writer {
    * or it is literal (False).
    */
   public void addProperty(int property, String value, boolean isResource);
+  public void addProperty(String property, String value, boolean isResource);
 
   /**
    * Adds a property statement for the current element whose value is an individual.
@@ -77,4 +81,5 @@ public interface Writer {
    * @param valueId Id of the individual.
    */
   public void addProperty(int property, int valueClass, String valueId);
+  public void addProperty(String property, String valueClass, String valueId);
 }

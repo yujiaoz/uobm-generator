@@ -9,9 +9,7 @@ public class Generator {
   /** delimiter between different parts in an id string*/
   private static final char ID_DELIMITER = '/';
   /** delimiter between name and index in a name string of an instance */
-  private static final char INDEX_DELIMITER = '_';
-  /** name of the log file */
-  private static final String LOG_FILE = "log.txt";
+  static final char INDEX_DELIMITER = '_';
 
   /** instance count of a class */
   private class InstanceCount {
@@ -178,44 +176,6 @@ public class Generator {
   }
 
   ///////////////////////////////////////////////////////////////////////////
-  //writer callbacks
-
-  /**
-   * Callback by the writer when it starts an instance section.
-   * @param classType Type of the instance.
-   */
-  void startSectionCB(int classType) {
-    instances_[classType].logNum++;
-    instances_[classType].logTotal++;
-  }
-
-  /**
-   * Callback by the writer when it starts an instance section identified by an rdf:about attribute.
-   * @param classType Type of the instance.
-   */
-  void startAboutSectionCB(int classType) {
-    startSectionCB(classType);
-  }
-
-  /**
-   * Callback by the writer when it adds a property statement.
-   * @param property Type of the property.
-   */
-  void addPropertyCB(int property) {
-    properties_[property].logNum++;
-    properties_[property].logTotal++;
-  }
-
-  /**
-   * Callback by the writer when it adds a property statement whose value is an individual.
-   * @param classType Type of the individual.
-   */
-  void addValueClassCB(int classType) {
-    instances_[classType].logNum++;
-    instances_[classType].logTotal++;
-  }
-
-  ///////////////////////////////////////////////////////////////////////////
 
   /**
    * Sets instance specification.
@@ -264,24 +224,11 @@ public class Generator {
     System.out.println("Started...");
     
     universities = new University[univNum];
-    for (int i = 0; i < univNum; ++i)
-    	universities[i] = new University(this);
+    for (int i = 0; i < univNum; ++i) 
+    	universities[i] = new University(this, i);
     
-    //TODO: I'M HERE
-    try {
-      log_ = new PrintStream(new FileOutputStream(System.getProperty("user.dir") +
-                                                 System.getProperty("file.separator") + LOG_FILE));
-      writer_.start();
-      for (int i = 0, j = 0; i < instances_[CS_C_UNIV].num; i++) {
-    	  _generateUniv(i + startIndex, numDept[i], deptSpec, j);
-    	  j += numDept[i];
-      }
-      writer_.end();
-      log_.close();
-    }
-    catch (IOException e) {
-      System.out.println("Failed to create log file!");
-    }
+    for (int i = 0; i < univNum; ++i)
+    	universities[i].output();
     System.out.println("Completed!");
   }
 
@@ -340,6 +287,7 @@ public class Generator {
     if (index == 0) {
       _generateASection(CS_C_UNIV, univIndex);
     }
+    //TODO: I'm here!
     _generateASection(CS_C_DEPT, index);
     for (int i = CS_C_DEPT + 1; i < CLASS_NUM; i++) {
       instances_[i].count = 0;
@@ -875,8 +823,8 @@ public class Generator {
   /**
    * @return Suffix of the data file.
    */
-  private String _getFileSuffix() {
-    return isDaml_ ? ".daml" : ".owl";
+  String _getFileSuffix() {
+    return ".owl";
   }
 
   /**

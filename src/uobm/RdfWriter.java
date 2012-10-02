@@ -45,16 +45,6 @@ public abstract class RdfWriter implements Writer {
 
   /** output stream */
   PrintStream out = null;
-  /** the generator */
-  Generator generator;
-
-  /**
-   * Constructor.
-   * @param generator The generator object.
-   */
-  public RdfWriter(Generator generator) {
-    this.generator = generator;
-  }
 
   /**
    * Implementation of Writer:start.
@@ -98,23 +88,36 @@ public abstract class RdfWriter implements Writer {
    * Implementation of Writer:startSection.
    */
   public void startSection(int classType, String id) {
-    generator.startSectionCB(classType);
     out.println();
     String s = "<" + T_ONTO_PREFIX + Class.TOKEN[classType] + T_SPACE +
         T_RDF_ABOUT + "=\"" + id + "\">";
     out.println(s);
+  }
+  
+  public void startSection(String type, String id) {
+	  out.println();
+	  String s = "<" + T_ONTO_PREFIX + type + T_SPACE +
+	     T_RDF_ABOUT + "=\"" + id + "\">";
+	  out.println(s);
   }
 
   /**
    * Implementation of Writer:startAboutSection.
    */
   public void startAboutSection(int classType, String id) {
-    generator.startAboutSectionCB(classType);
     out.println();
     String s = "<" + T_ONTO_PREFIX + Class.TOKEN[classType] + T_SPACE +
         T_RDF_ABOUT + "=\"" + id + "\">";
     out.println(s);
   }
+  
+  public void startAboutSection(String type, String id) {
+    out.println();
+    String s = "<" + T_ONTO_PREFIX + type + T_SPACE +
+        T_RDF_ABOUT + "=\"" + id + "\">";
+    out.println(s);
+  }
+  
 
   /**
    * Implementation of Writer:endSection.
@@ -124,12 +127,14 @@ public abstract class RdfWriter implements Writer {
     out.println(s);
   }
 
+  public void endSection(String type) {
+    String s = "</" + T_ONTO_PREFIX + type + ">";
+    out.println(s);
+  }
   /**
    * Implementation of Writer:addProperty.
    */
   public void addProperty(int property, String value, boolean isResource) {
-    generator.addPropertyCB(property);
-
     String s;
     if (isResource) {
       s = "   <" + T_ONTO_PREFIX + Property.TOKEN[property] + T_SPACE +
@@ -143,19 +148,38 @@ public abstract class RdfWriter implements Writer {
     out.println(s);
   }
 
+  public void addProperty(String property, String value, boolean isResource) {
+    String s;
+    if (isResource) {
+      s = "   <" + T_ONTO_PREFIX + property + T_SPACE +
+          T_RDF_RES + "=\"" + value + "\" />";
+    }
+    else { //literal
+      s = "   <" + T_ONTO_PREFIX + property + ">" + value +
+	          "</" + T_ONTO_PREFIX + property + ">";
+    }
+    out.println(s);
+  }
+
   /**
    * Implementation of Writer:addProperty.
    */
   public void addProperty(int property, int valueClass, String valueId) {
-    generator.addPropertyCB(property);
-    generator.addValueClassCB(valueClass);
-
     String s;
     s = "   <" + T_ONTO_PREFIX + Property.TOKEN[property] + ">\n" +
         "      <" + T_ONTO_PREFIX + Property.TOKEN[valueClass] + T_SPACE +
         T_RDF_ABOUT + "=\"" + valueId + "\" />" +
         "   </" + T_ONTO_PREFIX + Property.TOKEN[property] + ">";
 
+    out.println(s);
+  }
+  
+  public void addProperty(String property, String valueClass, String valueId) {
+    String s;
+    s = "   <" + T_ONTO_PREFIX + property + ">\n" +
+        "      <" + T_ONTO_PREFIX + valueClass + T_SPACE +
+        T_RDF_ABOUT + "=\"" + valueId + "\" />" +
+        "   </" + T_ONTO_PREFIX + property + ">";
     out.println(s);
   }
 
