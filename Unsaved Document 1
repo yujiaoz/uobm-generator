@@ -1,0 +1,28 @@
+      "name",
+      "takesCourse",
+      "teacherOf",
+      "undergraduateDegreeFrom",
+      "mastersDegreeFrom",
+      "doctoralDegreeFrom",
+      "advisor", -> isAdvisedBy
+      "memberOf", -> isMemberOf
+      "publicationAuthor",
+      "headOf", -> isHeadOf
+      "teachingAssistantOf",
+      "researchInterest",
+      "emailAddress",
+      "telephone",
+      "subOrganizationOf",
+      "worksFor"
+
+added
+	hasMajor
+	hasSameHomeTownWith
+	isFriendOf
+	like
+	love (same property of like)
+	isCrazyAbout
+	isStudentOf
+	enrollIn
+	*publicationDate
+	
