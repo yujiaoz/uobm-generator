@@ -3,31 +3,37 @@ package uobm;
 public class Class {
 
 	
-	public static final int UNIV = 0;
-	public static final int COLLEGE = 1;
-	public static final int DEPT = 2;	
-	public static final int PERSON = 3;	
-	public static final int MAN = 4;	
-	public static final int WOMAN = 5;	
-	public static final int FACULTY = 6;	
-	public static final int PROF = 7;	
-	public static final int FULLPROF = 8;	
-	public static final int ASSOPROF = 9;	
-	public static final int ASSTPROF = 10;	
-	public static final int VISTPROF = 11;	
-	public static final int LECTURE = 12;	
-	public static final int STUDENT = 13;	
-	public static final int UNDERSTUD = 14;	
-	public static final int GRADSTUD = 15;	
-	public static final int TA = 16;	
-	public static final int RA = 17;
-	public static final int COURSE = 18;	
-	public static final int GRADCOURSE = 19;	
-	public static final int PUBLICATION = 20;	
-	public static final int CHAIR = 21;	
-	public static final int DEAN = 22;	
-	public static final int RESEARCH = 23;	
-	public static final int RESEARCHGROUP = 24;	
+	/** delimiter between different parts in an id string*/
+	static final char ID_DELIMITER = '/';
+	/** delimiter between name and index in a name string of an instance */
+	static final char INDEX_DELIMITER = '_';
+	
+	
+	static final int INDEX_UNIV = 0;
+	static final int INDEX_COLLEGE = 1;
+	static final int INDEX_DEPT = 2;	
+	static final int INDEX_PERSON = 3;	
+	static final int INDEX_MAN = 4;	
+	static final int INDEX_WOMAN = 5;	
+	static final int INDEX_FACULTY = 6;	
+	static final int INDEX_PROF = 7;	
+	static final int INDEX_FULLPROF = 8;	
+	static final int INDEX_ASSOPROF = 9;	
+	static final int INDEX_ASSTPROF = 10;	
+	static final int INDEX_VISTPROF = 11;	
+	static final int INDEX_LECTURE = 12;	
+	static final int INDEX_STUDENT = 13;	
+	static final int INDEX_UNDERSTUD = 14;	
+	static final int INDEX_GRADSTUD = 15;	
+	static final int INDEX_TA = 16;	
+	static final int INDEX_RA = 17;
+	static final int INDEX_COURSE = 18;	
+	static final int INDEX_GRADCOURSE = 19;	
+	static final int INDEX_PUBLICATION = 20;	
+	static final int INDEX_CHAIR = 21;	
+	static final int INDEX_DEAN = 22;	
+	static final int INDEX_RESEARCH = 23;	
+	static final int INDEX_RESEARCHGROUP = 24;	
 	
 	  /** class name strings */
 	  public static final String[] TOKEN = {
@@ -130,44 +136,20 @@ public class Class {
 	  /** average ratio of graduate students to graduate student advising professors */
 	  public static final int R_GRADSTUD_ADVISOR = 1;
 	  
-	  public static String getID(int index) {
-		  String id;
-		  switch (classType) {
-		     case CS_C_UNIV:
-		       id = "http://www." + getRelativeName(classType, index) + ".edu";
-		       break;
-		     case CS_C_DEPT:
-		       id = "http://www." + getRelativeName(classType, index) + "." +
-		           getRelativeName(CS_C_UNIV, instances_[CS_C_UNIV].count - 1) +
-		           ".edu";
-		       break;
-		     default:
-		       id = getId(CS_C_DEPT, instances_[CS_C_DEPT].count - 1) + ID_DELIMITER +
-		           getRelativeName(classType, index);
-		       break;
-		  }
-		  return id;
+	  public static String getUnivID(int index) {
+		  return "http://www.university" + index + ".edu";
+	  }
+
+	  public static String getDeptID(int univIndex, int deptIndex) {
+		  return "http://www.department" + deptIndex + ".university" + univIndex + ".edu"; 
 	  }
 	  
+	  public static String getOtherID(String deptID, int classType, int index) {
+		  return deptID + ID_DELIMITER + getRelativeName(classType, index);
+	  }
 	  
-	private String _getRelativeName(int classType, int index) {
-		    String name;
-
-		    switch (classType) {
-		      case CS_C_UNIV:
-		        //should be unique too!
-		        name = CLASS_TOKEN[classType] + index;
-		        break;
-		      case CS_C_DEPT:
-		        name = CLASS_TOKEN[classType] + index;
-		        break;
-		      default:
-		    	if (classType == 23)
-		    		System.out.println("here");
-		        name = CLASS_TOKEN[classType] + index;
-		        break;
-		    }
-
-		    return name;
-		  }
+	  public static String getRelativeName(int classType, int index) {
+		  return TOKEN[classType] + "index";
+	  }
+	  
 }

@@ -6,65 +6,6 @@ import java.io.*;
 
 public class Generator {
 
-  /** delimiter between different parts in an id string*/
-  private static final char ID_DELIMITER = '/';
-  /** delimiter between name and index in a name string of an instance */
-  static final char INDEX_DELIMITER = '_';
-
-  /** instance count of a class */
-  private class InstanceCount {
-    /** instance number within one department */
-    public int num = 0;
-    /** total instance num including sub-classes within one department */
-    public int total = 0;
-    /** index of the current instance within the current department */
-    public int count = 0;
-    /** total number so far within the current department */
-    public int logNum = 0;
-    /** total number so far */
-    public long logTotal = 0l;
-  }
-
-  /** instance count of a property */
-  private class PropertyCount {
-    /** total number so far within the current department */
-    public int logNum = 0;
-    /** total number so far */
-    public long logTotal = 0l;
-  }
-
-  /** information a course instance */
-  private class CourseInfo {
-    /** index of the faculty who teaches this course */
-    public int indexInFaculty = 0;
-    /** index of this course */
-    public int globalIndex = 0;
-  }
-
-  /** information of an RA instance */
-  private class RaInfo {
-    /** index of this RA in the graduate students */
-    public int indexInGradStud = 0;
-  }
-
-  /** information of a TA instance */
-  private class TaInfo {
-    /** index of this TA in the graduate students */
-    public int indexInGradStud = 0;
-    /** index of the course which this TA assists */
-    public int indexInCourse = 0; //local index in courses
-  }
-
-  /** informaiton of a publication instance */
-  private class PublicationInfo {
-    /** id */
-    public String id;
-    /** name */
-    public String name;
-    /** list of authors */
-    public ArrayList<String> authors;
-  }
-
   /** univ-bench-dl ontology url */
   String ontology;
 
@@ -72,8 +13,6 @@ public class Generator {
   private long seed_ = 0l;
   /** user specified seed for the data generation */
   private long baseSeed = 0l;
-  /** log writer */
-  private PrintStream log_ = null;
   
   private int univNum;
   private int startIndex;
@@ -172,7 +111,6 @@ public class Generator {
     this.baseSeed = seed;
     this.univNum = univNum;
     _generate();
-    System.out.println("See log.txt for more details.");
   }
 
   ///////////////////////////////////////////////////////////////////////////
@@ -228,27 +166,10 @@ public class Generator {
     	universities[i] = new University(this, i);
     
     for (int i = 0; i < univNum; ++i)
-    	universities[i].output();
+    	universities[i].generate();
     System.out.println("Completed!");
   }
 
-  /**
-   * Creates a university.
-   * @param index Index of the university.
-   */
-  private void _generateUniv(int index, int deptNum, Specification[] specs, int startIndex) {
-    //this transformation guarantees no different pairs of (index, baseSeed) generate the same data
-    seed_ = baseSeed * (Integer.MAX_VALUE + 1) + index;
-    Lib.setSeed(seed_);
-
-    //determine department number
-    instances_[CS_C_DEPT].num = deptNum;
-    instances_[CS_C_DEPT].count = 0;
-    //generate departments
-    for (int i = 0; i < instances_[CS_C_DEPT].num; i++) {
-      _generateDept(index, i, specs[startIndex + i]);
-    }
-  }
 
   /**
    * Creates a department.
@@ -287,7 +208,7 @@ public class Generator {
     if (index == 0) {
       _generateASection(CS_C_UNIV, univIndex);
     }
-    //TODO: I'm here!
+    //TODO: _generateDept
     _generateASection(CS_C_DEPT, index);
     for (int i = CS_C_DEPT + 1; i < CLASS_NUM; i++) {
       instances_[i].count = 0;
@@ -840,6 +761,7 @@ public class Generator {
       case CS_C_UNIV:
         id = "http://www." + _getRelativeName(classType, index) + ".edu";
         break;
+        //TODO: _getID(int, int)
       case CS_C_DEPT:
         id = "http://www." + _getRelativeName(classType, index) + "." +
             _getRelativeName(CS_C_UNIV, instances_[CS_C_UNIV].count - 1) +

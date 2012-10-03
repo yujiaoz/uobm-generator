@@ -2,6 +2,31 @@ package uobm;
 
 public class Property {
 	
+	  static final int INDEX_NAME = 0;
+	  static final int INDEX_TAKES = 1;
+	  static final int INDEX_TEACHES = 2;
+	  static final int INDEX_UNDERDEGREE = 3;
+	  static final int INDEX_MASTERDEGREE = 4;
+	  static final int INDEX_DOCDEGREE = 5;
+	  static final int INDEX_ADVISED = 6;
+	  static final int INDEX_MEMBER = 7;
+	  static final int INDEX_AUTHOR = 8;
+	  static final int INDEX_HEAD = 9;
+	  static final int INDEX_TA = 10;
+	  static final int INDEX_INTEREST = 11;
+	  static final int INDEX_EMAIL = 12;
+	  static final int INDEX_TELE = 13;
+	  static final int INDEX_SUBORG = 14;
+	  static final int INDEX_WORKS = 15;
+	  static final int INDEX_MAJOR = 16;
+	  static final int INDEX_SAMEHOMETOWN = 17;
+	  static final int INDEX_FRIEND = 18;
+	  static final int INDEX_LIKE = 19;
+	  static final int INDEX_LOVE = 20;
+	  static final int INDEX_CRAZY = 21;
+	  static final int INDEX_STUDENT = 22;
+	  static final int INDEX_ENROLL = 23;
+	
 	  /** property name strings */
 	  static final String[] TOKEN = {
 	      "name",
