@@ -144,12 +144,18 @@ public class Class {
 		  return "http://www.department" + deptIndex + ".university" + univIndex + ".edu"; 
 	  }
 	  
-	  public static String getOtherID(String deptID, int classType, int index) {
-		  return deptID + ID_DELIMITER + getRelativeName(classType, index);
+	  public static String getCollegeID(int univIndex, int collegeIndex) {
+		  return "http://www.college" + collegeIndex + ".university" + univIndex + ".edu"; 
+	  }
+		  
+	  public static String getOtherID(String fatherID, int classType, int index) {
+		  return fatherID + ID_DELIMITER + getRelativeName(classType, index);
 	  }
 	  
 	  public static String getRelativeName(int classType, int index) {
 		  return TOKEN[classType] + "index";
 	  }
 	  
+	  public static void getAttributeOfStudent(generator)
+
 }
