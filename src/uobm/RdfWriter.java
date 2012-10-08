@@ -40,6 +40,8 @@ public abstract class RdfWriter implements Writer {
   static final String T_RDF_ABOUT = T_RDF_PREFIX + "about";
   /** string of "rdf:resource */
   static final String T_RDF_RES = T_RDF_PREFIX + "resource";
+  /** string of "rdf:type" */
+  static final String T_RDF_TYPE = T_RDF_PREFIX + "type";
   /** white space string */
   static final String T_SPACE = " ";
 

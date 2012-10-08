@@ -549,7 +549,7 @@ public class Generator {
    * @param type Type of the student.
    * @param index Index of the instance within its type.
    */
-  private void _generateAStudent_a(int type, int index) {
+  void _generateAStudent_a(int type, int index) {
     writer_.addProperty(CS_P_NAME, _getRelativeName(type, index), false);
     writer_.addProperty(CS_P_ENROLLIN,
                        _getId(CS_C_DEPT, instances_[CS_C_DEPT].count - 1), true);
@@ -672,7 +672,13 @@ public class Generator {
 
   /**
    * Generates a graduate course instance.
-   * @param index Index of the graduate course.
+   * @param index Index of   void _generateAStudent_a(int type, int index) {
+    writer_.addProperty(CS_P_NAME, _getRelativeName(type, index), false);
+    writer_.addProperty(CS_P_ENROLLIN,
+                       _getId(CS_C_DEPT, instances_[CS_C_DEPT].count - 1), true);
+    writer_.addProperty(CS_P_EMAIL, _getEmail(type, index), false);
+    writer_.addProperty(CS_P_TELEPHONE, "xxx-xxx-xxxx", false);
+  }the graduate course.
    */
   private void _generateAGraduateCourse(int index) {
     writer_.startSection(CS_C_GRADCOURSE, _getId(CS_C_GRADCOURSE, index));
@@ -1065,5 +1071,11 @@ public class Generator {
 	}
 	
   }
+
+public LinkedList<String> getOtherPeopleList(String womanID, int num) {
+	// TODO Auto-generated method stub
+	return null;
+}
+  
 
 }

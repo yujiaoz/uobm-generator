@@ -64,7 +64,7 @@ public class Class {
 	      "ResearchGroup" //CS_C_RESEARCHGROUP
 	  };
 	  /** number of classes */
-	  static final int CLASS_NUM = TOKEN.length;
+	  static final int LENGTH = TOKEN.length;
 	  
 	  /** size of the pool of the undergraduate courses for one department */
 	  public static final int UNDER_COURSE_NUM = 100; //must >= max faculty # * FACULTY_COURSE_MAX
@@ -149,13 +149,20 @@ public class Class {
 	  }
 		  
 	  public static String getOtherID(String fatherID, int classType, int index) {
-		  return fatherID + ID_DELIMITER + getRelativeName(classType, index);
+		  return fatherID + ID_DELIMITER + TOKEN[classType] + index;
 	  }
 	  
-	  public static String getRelativeName(int classType, int index) {
-		  return TOKEN[classType] + "index";
+	  public static String getOtherID(String fatherID, String token, int index) {
+		  return fatherID + ID_DELIMITER + token + index;
 	  }
 	  
-	  public static void getAttributeOfStudent(generator)
+	  public static String getName(int classType, int index) {
+		  return TOKEN[classType] + index;
+	  }
+	  
+	  public static String getName(String token, int index) {
+		  return token + index;
+	  }
 
 }
+

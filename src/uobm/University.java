@@ -1,5 +1,7 @@
 package uobm;
 
+import java.util.LinkedList;
+
 public class University {
 
 	boolean m_hasWomanCollege = false;
@@ -36,9 +38,8 @@ public class University {
 		m_writer.start();
 		m_writer.startFile(m_filename);
 		
-		
 		m_writer.startSection(Class.INDEX_UNIV, m_id);
-		m_writer.addProperty(Property.INDEX_NAME, Class.getRelativeName(Class.INDEX_UNIV, m_index), false);
+		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_UNIV, m_index), false);
 		m_writer.endSection(Class.INDEX_UNIV);
 		
 		generateColleges();
@@ -61,12 +62,46 @@ public class University {
 			m_writer.endSection(Class.INDEX_COLLEGE);
 			
 			int womanNum = Lib.getRandomFromRange(230, 270);
+			String womanID;
 			for (int i = 0; i < womanNum; ++i) {
-				m_writer.startSection(Class.INDEX_PERSON, Class.getOtherID(collegeID, Class.INDEX_STUDENT, i));
-				m_gen.generateAStudent();
+				m_writer.startSection(Class.INDEX_PERSON, womanID = Class.getOtherID(collegeID, "woman_student", i));
+				generateWomanStudent(collegeID, womanID, Class.getName("woman_student", i));
 				m_writer.endSection(Class.INDEX_PERSON);
 			}
 		}
 	}
+
+	private void generateWomanStudent(String collegeID, String womanID, String name) {
+		m_writer.addProperty(Property.INDEX_STUDENT, collegeID, true);
+		m_writer.addProperty(Property.INDEX_EMAIL, collegeID.replaceAll("http://www.", name + "@"), false);
+		m_writer.addProperty(Property.INDEX_FIRSTNAME, name + ".first", false);
+		m_writer.addProperty(Property.INDEX_LASTNAME, name + ".last", false);
+		
+		int num = Lib.getRandomFromRange(0, 5);
+		LinkedList<String> list = m_gen.getOtherPeopleList(womanID, num);
+		for (int i = 0; i < num; ++i)
+			m_writer.addProperty(Property.INDEX_FRIEND, list.remove(), true);
+		
+		num = Lib.getRandomFromRange(0, 2);
+		list = m_gen.getOtherPeopleList(womanID, num);
+		for (int i = 0; i < num; ++i)
+			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(), true);
+		
+		num = Lib.getRandomFromRange(0, 3);
+		list = Interest.getList(num);
+		for (int i = 0; i < num; ++i)
+			if (Lib.getRandomFromRange(0, 1) == 0)
+				m_writer.addProperty(Property.INDEX_LIKE, list.remove(), true);
+			else
+				m_writer.addProperty(Property.INDEX_LOVE, list.remove(), true);
+		
+		num = Lib.getRandomFromRange(0, 2);
+		list = Interest.getLoverList(num);
+		for (int i = 0; i < num; ++i)
+			m_writer.addProperty(RdfWriter.T_RDF_TYPE, list.remove(), true);
+
+		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
+	}
 	
+
 }

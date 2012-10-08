@@ -26,6 +26,8 @@ public class Property {
 	  static final int INDEX_CRAZY = 21;
 	  static final int INDEX_STUDENT = 22;
 	  static final int INDEX_ENROLL = 23;
+	  static final int INDEX_FIRSTNAME = 24;
+	  static final int INDEX_LASTNAME = 25;
 	
 	  /** property name strings */
 	  static final String[] TOKEN = {
@@ -52,10 +54,12 @@ public class Property {
 	      "love",
 	      "isCrazyAbout", 
 	      "isStudentOf", 
-	      "enrollIn"
+	      "enrollIn", 
+	      "firstName", 
+	      "lastName"
 	  };
 	  /** number of properties */
-	  static final int PROP_NUM = TOKEN.length;
+	  static final int LENGTH = TOKEN.length;
 	  
 	  /*
 	   * about publication rate
@@ -82,7 +86,6 @@ public class Property {
 	  public static final int UNDERSTUD_COURSE_MAX = 4;
 	  public static final int GRADSTUD_COURSE_MIN = 1;
 	  public static final int GRADSTUD_COURSE_MAX = 3;
-	  
 	  
 	  
 }
