@@ -34,7 +34,7 @@ public class University {
 		m_id = Class.getUnivID(m_index);
 	}
 	
-	public void generate() {
+	public void generatePeople() {
 		m_writer.start();
 		m_writer.startFile(m_filename);
 		
@@ -76,31 +76,14 @@ public class University {
 		m_writer.addProperty(Property.INDEX_EMAIL, collegeID.replaceAll("http://www.", name + "@"), false);
 		m_writer.addProperty(Property.INDEX_FIRSTNAME, name + ".first", false);
 		m_writer.addProperty(Property.INDEX_LASTNAME, name + ".last", false);
-		
-		int num = Lib.getRandomFromRange(0, 5);
-		LinkedList<String> list = m_gen.getOtherPeopleList(womanID, num);
-		for (int i = 0; i < num; ++i)
-			m_writer.addProperty(Property.INDEX_FRIEND, list.remove(), true);
-		
-		num = Lib.getRandomFromRange(0, 2);
-		list = m_gen.getOtherPeopleList(womanID, num);
-		for (int i = 0; i < num; ++i)
-			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(), true);
-		
-		num = Lib.getRandomFromRange(0, 3);
-		list = Interest.getList(num);
-		for (int i = 0; i < num; ++i)
-			if (Lib.getRandomFromRange(0, 1) == 0)
-				m_writer.addProperty(Property.INDEX_LIKE, list.remove(), true);
-			else
-				m_writer.addProperty(Property.INDEX_LOVE, list.remove(), true);
-		
-		num = Lib.getRandomFromRange(0, 2);
-		list = Interest.getLoverList(num);
-		for (int i = 0; i < num; ++i)
-			m_writer.addProperty(RdfWriter.T_RDF_TYPE, list.remove(), true);
-
 		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
+		
+		
+		m_gen.addSameHomeTownAttributes(m_writer, womanID);
+		m_gen.addIsFriendOfAttributes(m_writer, womanID);
+		m_gen.addLikeAttributes(m_writer);
+		m_gen.addFanAttributes(m_writer);
+		
 	}
 	
 
