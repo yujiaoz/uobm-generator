@@ -1,7 +1,5 @@
 package uobm;
 
-import java.util.LinkedList;
-
 public class Property {
 
 	static final int INDEX_NAME = 0;

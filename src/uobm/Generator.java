@@ -1195,16 +1195,16 @@ public class Generator {
 
 	}
 
-	public LinkedList<String> getOtherPeopleList(int univIndex, int deptIndex, String ID, int num) {
+	public LinkedList<String> getOtherPeopleList(Organization o, String ID, int num) {
 		LinkedList<String> list = new LinkedList<String>();
 		HashSet<String> hash = new HashSet<String>();
 		String people;
 
 		hash.add(ID);
 		for (int i = 0; i < num; ++i) {
-			people = getRandomPeople();
+			people = getRandomPeople(o);
 			while (list.contains(people))
-				people = getRandomPeople(univIndex, deptIndex);
+				people = getRandomPeople(o);
 			hash.add(people);
 			list.add(people);
 		}
@@ -1212,18 +1212,13 @@ public class Generator {
 		return list;
 	}
 
-	private String getRandomPeople(int univIndex, int deptIndex) {
-		University univ;
-		Department dept;
-		if (Lib.getRandomFromRange(0, Class.R_OUTSIDE_DEPT) == 0) {
-			univ = universities[univIndex];
-			dept = univ.m_depts[deptIndex];
-		}
+	private String getRandomPeople(Organization o) {
+		if (Lib.getRandomFromRange(0, Class.R_OUTSIDE_DEPT) == 0) 
+			return o.getRandomPeople();
 		else {
-			univ = getRandomUniv();
-			dept = universities[univIndex].getRandomDept();
+			o = getRandomUniv();
+			return o.getRandomPeople();
 		}
-		return dept.getRandomPeople();
 	}
 
 	private University getRandomUniv() {
@@ -1238,20 +1233,20 @@ public class Generator {
 		return Interest.getLoverList(num);
 	}
 
-	public void addSameHomeTownAttributes(Writer m_writer, String ID) {
+	public void addSameHomeTownAttributes(int univIndex, int deptIndex, Writer m_writer, String ID) {
 		int num = Lib.getRandomFromRange(Property.SAMEHOMETOWN_MIN,
 				Property.SAMEHOMETOWN_MAX);
-		LinkedList<String> list = getOtherPeopleList(ID, num);
+		LinkedList<String> list = getOtherPeopleList(univIndex, deptIndex, ID, num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(),
 					true);
 
 	}
 
-	public void addIsFriendOfAttributes(Writer m_writer, String ID) {
+	public void addIsFriendOfAttributes(int univIndex, int deptIndex, Writer m_writer, String ID) {
 		int num = Lib.getRandomFromRange(Property.FRIENDOF_MIN,
 				Property.FRIENDOF_MAX);
-		LinkedList<String> list = getOtherPeopleList(ID, num);
+		LinkedList<String> list = getOtherPeopleList(univIndex, deptIndex, ID, num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_FRIEND, list.remove(), true);
 	}
