@@ -8,6 +8,8 @@ public class College implements Organization{
 	int m_univIndex, m_collegeIndex;
 	Generator m_gen;
 	boolean m_isWomanCollege;
+	int m_womanNum;
+	String m_ID;
 	
 	LinkedList<Department> m_depts;
 
@@ -18,6 +20,7 @@ public class College implements Organization{
 		m_gen = univ.m_gen;
 		m_isWomanCollege = isWomanCollege;
 		m_depts = new LinkedList<Department>();
+		m_ID = Class.getCollegeID(m_univIndex, m_collegeIndex);
 	}
 
 	@Override
@@ -30,18 +33,16 @@ public class College implements Organization{
 			return;
 		}
 
-		String collegeID = Class.getCollegeID(m_univIndex, m_collegeIndex);
-		m_writer.startSection(Class.INDEX_COLLEGE, collegeID);
+		
+		m_writer.startSection(Class.INDEX_COLLEGE, m_ID);
 		m_writer.addProperty(Property.INDEX_SUBORG, Class.getUnivID(m_univIndex), true);
 		m_writer.endSection(Class.INDEX_COLLEGE);
 
-		int womanNum = Lib.getRandomFromRange(230, 270);
+		m_womanNum = Lib.getRandomFromRange(230, 270);
 		String womanID;
-		for (int i = 0; i < womanNum; ++i) {
-			m_writer.startSection(Class.INDEX_PERSON,
-					womanID = Class.getOtherID(collegeID, "woman_student", i));
-			generateWomanStudent(collegeID, womanID,
-					Class.getName("woman_student", i));
+		for (int i = 0; i < m_womanNum; ++i) {
+			m_writer.startSection(Class.INDEX_PERSON, womanID = Class.getOtherID(m_ID, "woman_student", i));
+			generateWomanStudent(m_ID, womanID, Class.getName("woman_student", i));
 			m_writer.endSection(Class.INDEX_PERSON);
 		}
 	}
@@ -55,8 +56,8 @@ public class College implements Organization{
 		m_writer.addProperty(Property.INDEX_LASTNAME, name + ".last", false);
 		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
 
-		m_gen.addSameHomeTownAttributes(m_univIndex, -1, m_writer, womanID);
-		m_gen.addIsFriendOfAttributes(m_univIndex, -1, m_writer, womanID);
+		m_gen.addSameHomeTownAttributes(this, m_writer, womanID);
+		m_gen.addIsFriendOfAttributes(this, m_writer, womanID);
 		m_gen.addLikeAttributes(m_writer);
 		m_gen.addFanAttributes(m_writer);
 
@@ -64,14 +65,14 @@ public class College implements Organization{
 
 	@Override
 	public Organization getRandomSubOrgan() {
-		// TODO Auto-generated method stub
-		return null;
+		return m_depts.get(Lib.getRandomFromRange(0, m_depts.size() - 1));
 	}
 
 	@Override
 	public String getRandomPeople() {
-		// TODO Auto-generated method stub
-		return null;
+		if (m_isWomanCollege)
+			return Class.getOtherID(m_ID, "woman_student", Lib.getRandomFromRange(0, m_womanNum - 1));
+		else return null;
 	}
 
 	@Override
@@ -82,6 +83,16 @@ public class College implements Organization{
 	@Override
 	public int getIndex() {
 		return m_collegeIndex;
+	}
+
+	@Override
+	public String getRandomCourse() {
+		return null;
+	}
+
+	@Override
+	public String getRandomGradCourse() {
+		return null;
 	}
 
 }

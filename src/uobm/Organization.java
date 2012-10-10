@@ -12,4 +12,8 @@ public interface Organization {
 	
 	public String getRandomPeople();
 	
+	public String getRandomCourse();
+	
+	public String getRandomGradCourse();
+	
 }

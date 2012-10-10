@@ -59,7 +59,7 @@ public class University implements Organization{
 	@Override
 	public Organization getRandomSubOrgan() {
 		int index = -1;
-		if (m_hasWomanCollege && (index = Lib.getRandomFromRange(-1, m_deptNum)) < 0)
+		if (m_hasWomanCollege && (index = Lib.getRandomFromRange(-1, m_deptNum - 1)) < 0)
 			return m_colleges[0];
 		if (index >= 0)
 			return m_depts[index];
@@ -80,6 +80,18 @@ public class University implements Organization{
 	@Override
 	public int getIndex() {
 		return m_index;
+	}
+
+	@Override
+	public String getRandomCourse() {
+		Department dept = m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
+		return dept.getRandomCourse();
+	}
+
+	@Override
+	public String getRandomGradCourse() {
+		Department dept = m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
+		return dept.getRandomGradCourse();
 	}
 
 }

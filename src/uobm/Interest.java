@@ -19,29 +19,15 @@ public class Interest {
 
 	public static LinkedList<String> getList(int num) {
 		LinkedList<String> list = new LinkedList<String>();
-		HashSet<Integer> hash = new HashSet<Integer>();
-		int index;
-		for (int i = 0; i < num; ++i) {
-			index = Lib.getRandomFromRange(0, LENGTH);
-			while (hash.contains(index))
-				index = Lib.getRandomFromRange(0, LENGTH);
-			hash.add(index);
-			list.add(TOKEN[index]);
-		}
+		for (int i: Lib.getRandomList(num, LENGTH))
+			list.add(TOKEN[i]);
 		return list;
 	}
 
 	public static LinkedList<String> getLoverList(int num) {
 		LinkedList<String> list = new LinkedList<String>();
-		HashSet<Integer> hash = new HashSet<Integer>();
-		int index;
-		for (int i = 0; i < num; ++i) {
-			index = Lib.getRandomFromRange(0, LENGTH);
-			while (hash.contains(index))
-				index = Lib.getRandomFromRange(0, LENGTH);
-			hash.add(index);
-			list.add(LOVER_TOKEN[index]);
-		}
+		for (int i: Lib.getRandomList(num, LOVER_LENGTH))
+			list.add(LOVER_TOKEN[i]);
 		return list;
 	}
 
