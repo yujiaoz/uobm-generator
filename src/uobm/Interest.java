@@ -32,8 +32,17 @@ public class Interest {
 	}
 
 	public static LinkedList<String> getLoverList(int num) {
-
-		return null;
+		LinkedList<String> list = new LinkedList<String>();
+		HashSet<Integer> hash = new HashSet<Integer>();
+		int index;
+		for (int i = 0; i < num; ++i) {
+			index = Lib.getRandomFromRange(0, LENGTH);
+			while (hash.contains(index))
+				index = Lib.getRandomFromRange(0, LENGTH);
+			hash.add(index);
+			list.add(LOVER_TOKEN[index]);
+		}
+		return list;
 	}
 
 }

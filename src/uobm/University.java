@@ -85,6 +85,11 @@ public class University {
 		m_gen.addFanAttributes(m_writer);
 		
 	}
+
+	public Department getRandomDept() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

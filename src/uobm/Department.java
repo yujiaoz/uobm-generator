@@ -161,4 +161,9 @@ public class Department {
 
 	}
 
+	public String getRandomPeople() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

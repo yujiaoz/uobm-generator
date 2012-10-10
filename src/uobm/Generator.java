@@ -1221,19 +1221,21 @@ public class Generator {
 		}
 		else {
 			univ = getRandomUniv();
-			deptIndex = universities[univIndex].getRandomDept();
+			dept = universities[univIndex].getRandomDept();
 		}
-		
+		return dept.getRandomPeople();
+	}
+
+	private University getRandomUniv() {
+		return universities[Lib.getRandomFromRange(0, univNum)];
 	}
 
 	public LinkedList<String> getInterestList(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return Interest.getList(num);
 	}
 
 	public LinkedList<String> getLoverList(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return Interest.getLoverList(num);
 	}
 
 	public void addSameHomeTownAttributes(Writer m_writer, String ID) {
