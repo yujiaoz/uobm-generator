@@ -126,8 +126,8 @@ public class Generator {
 
 	private String getRandomPeople(Organization o) {
 		if (Lib.getRandomFromRange(0, Class.R_OUTSIDE_DEPT) == 0) 
-			return o.getRandomPeople();
-		else return getRandomPeople(); 
+			return getRandomPeople();
+		else return o.getRandomPeople(); 
 	}
 
 	private String getRandomPeople() {
@@ -162,8 +162,7 @@ public class Generator {
 	}
 
 	public void addIsFriendOfAttributes(Organization o, Writer m_writer, String ID) {
-		int num = Lib.getRandomFromRange(Property.FRIENDOF_MIN,
-				Property.FRIENDOF_MAX);
+		int num = Lib.getRandomFromRange(Property.FRIENDOF_MIN, Property.FRIENDOF_MAX);
 		LinkedList<String> list = getOtherPeopleList(o, ID, num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_FRIEND, list.remove(), true);

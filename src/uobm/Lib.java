@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Lib {
-	public static Random random_;
+	public static Random random_ = new Random();
 	
 	public static void setSeed(long seed) {
 		random_.setSeed(seed);

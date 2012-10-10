@@ -68,12 +68,21 @@ public class Department implements Organization {
 
 	@Override
 	public void generate() {
+		generateFaculty();
+		generateStudents();
+	}
+	
+	public void generateFaculty() {
+		m_writer.start();
+		m_writer.startFile(m_filename);
 		generateProfs();
 		generateAssoProfs();
 		generateAsstProfs();
 		generateVistProfs();
 		generateLectures();
-
+	}
+	
+	public void generateStudents() {
 		generateUnderGradStud();
 		generateGradStud();
 		
@@ -81,6 +90,8 @@ public class Department implements Organization {
 		generatePublications();
 		generateTARA();
 		generateResearchGroup();
+		m_writer.endFile();
+		m_writer.end();
 	}
 	
 	private void generateResearchGroup() {
@@ -340,6 +351,8 @@ public class Department implements Organization {
 
 	@Override
 	public String getRandomCourse() {
+		if (m_underCourseNum < 1)
+			System.out.println("here");
 		return Class.getName(Class.INDEX_COURSE, Lib.getRandomFromRange(0, m_underCourseNum - 1));
 	}
 

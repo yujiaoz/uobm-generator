@@ -17,9 +17,13 @@ public class University implements Organization{
 	String m_filename;
 	
 	public University(Generator gen, int index) {
+		m_gen = gen;
+		m_writer = new OwlWriter(gen.ontology);
+		m_index = index;
+		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "univ" + index;
+		
 		m_collegeNum = Lib.getRandomFromRange(Class.COLL_MIN, Class.COLL_MAX);
 		m_deptNum = Lib.getRandomFromRange(Class.DEPT_MIN, Class.DEPT_MAX);
-		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "" + Class.INDEX_DELIMITER;
 		m_depts = new Department[m_deptNum];
 		for (int i = 0; i < m_deptNum; ++i) {
 			m_depts[i] = new Department(gen, index, i, m_filename);
@@ -31,10 +35,13 @@ public class University implements Organization{
 			++m_collegeNum;
 		m_colleges = new College[m_collegeNum];
 		
-		m_gen = gen;
+		for (int i = 0; i < m_collegeNum; ++i)
+			if (m_hasWomanCollege && i == 0)
+				m_colleges[i] = new College(m_writer, this, i, true);
+			else 
+				m_colleges[i] = new College(m_writer, this, i, false);
+		
 		m_filename +=  ".owl";
-		m_writer = new OwlWriter(gen.ontology);
-		m_index = index;
 	}
 	
 	@Override
@@ -47,10 +54,13 @@ public class University implements Organization{
 		m_writer.endSection(Class.INDEX_UNIV);
 		
 		for (int i = 0; i < m_collegeNum; ++i)
-			if (m_hasWomanCollege && i == 0)
-				m_colleges[i] = new College(m_writer, this, i, true);
-			else 
-				m_colleges[i] = new College(m_writer, this, i, false);
+			m_colleges[i].generate();
+		
+		for (int i = 0; i < m_deptNum; ++i)
+			m_depts[i].generateFaculty();
+		
+		for (int i = 0; i < m_deptNum; ++i)
+			m_depts[i].generateStudents();
 		
 		m_writer.endFile();
 		m_writer.end();
