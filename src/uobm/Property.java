@@ -31,8 +31,8 @@ public class Property {
 
 	/** property name strings */
 	static final String[] TOKEN = { "name", "takesCourse", "teacherOf",
-			"undergraduateDegreeFrom", "mastersDegreeFrom",
-			"doctoralDegreeFrom", "isAdvisedBy", "isMemberOf",
+			"hasUndergraduateDegreeFrom", "hasMastersDegreeFrom",
+			"hasDoctoralDegreeFrom", "isAdvisedBy", "isMemberOf",
 			"publicationAuthor", "isHeadOf", "teachingAssistantOf",
 			"researchInterest", "emailAddress", "telephone",
 			"subOrganizationOf", "worksFor", "hasMajor", "hasSameHomeTownWith",
@@ -69,7 +69,7 @@ public class Property {
 
 	public static final int SAMEHOMETOWN_MIN = 0;
 	public static final int SAMEHOMETOWN_MAX = 2;
-	public static final int FRIENDOF_MIN = 0;
+	public static final int FRIENDOF_MIN = 1;
 	public static final int FRIENDOF_MAX = 4;
 	public static final int LIKE_MIN = 0;
 	public static final int LIKE_MAX = 3;
@@ -78,5 +78,9 @@ public class Property {
 	public static final int R_TAKES_GRAD_UNDER = 9;
 	public static final int PUB_AUTHOR_MIN = 1;
 	public static final int PUB_AUTHOR_MAX = 5;
+	
+	public static final int R_FRIEND_OUTSIDE_DEPT = 4;
+	public static final int R_TOWN_OUTSIDE_DEPT = 0;
+
 
 }

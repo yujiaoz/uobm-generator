@@ -1,6 +1,5 @@
 package uobm;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Interest {

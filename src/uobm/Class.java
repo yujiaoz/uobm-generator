@@ -143,7 +143,6 @@ public class Class {
 
 	public static final int FAN_MIN = 0;
 	public static final int FAN_MAX = 3;
-	public static final int R_OUTSIDE_DEPT = 4;
 
 	public static String getUnivID(int index) {
 		return "http://www.university" + index + ".edu";

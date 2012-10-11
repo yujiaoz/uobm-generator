@@ -93,6 +93,7 @@ public interface Writer {
 
 	public void addProperty(String property, String value, boolean isResource);
 
+	public void addTypeProperty(String value);
 	/**
 	 * Adds a property statement for the current element whose value is an
 	 * individual.

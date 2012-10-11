@@ -22,18 +22,19 @@ public class University implements Organization{
 		m_index = index;
 		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "univ" + index;
 		
-		m_collegeNum = Lib.getRandomFromRange(Class.COLL_MIN, Class.COLL_MAX);
-		m_deptNum = Lib.getRandomFromRange(Class.DEPT_MIN, Class.DEPT_MAX);
-		m_depts = new Department[m_deptNum];
-		for (int i = 0; i < m_deptNum; ++i) {
-			m_depts[i] = new Department(gen, index, i, m_filename);
-		}
-		
 		m_hasWomanCollege = Lib.getRandomFromRange(0, Class.R_WOMAN_COLLEGE) == 0;
 		m_collegeNum = Lib.getRandomFromRange(Class.COLL_MIN, Class.COLL_MAX);
 		if (m_hasWomanCollege) 
 			++m_collegeNum;
+		
+		m_deptNum = Lib.getRandomFromRange(Class.DEPT_MIN, Class.DEPT_MAX);
+		m_depts = new Department[m_deptNum];
 		m_colleges = new College[m_collegeNum];
+		
+		
+		for (int i = 0; i < m_deptNum; ++i) {
+			m_depts[i] = new Department(this, i, m_filename);
+		}
 		
 		for (int i = 0; i < m_collegeNum; ++i)
 			if (m_hasWomanCollege && i == 0)
@@ -68,13 +69,13 @@ public class University implements Organization{
 
 	@Override
 	public Organization getRandomSubOrgan() {
-		int index = -1;
-		if (m_hasWomanCollege && (index = Lib.getRandomFromRange(-1, m_deptNum - 1)) < 0)
-			return m_colleges[0];
+		int index = Lib.getRandomFromRange(-1, m_deptNum - 1);
+		if (m_hasWomanCollege && index < 0) return m_colleges[0];
+		
 		if (index >= 0)
 			return m_depts[index];
 		else
-			return m_depts[Lib.getRandomFromRange(0, m_deptNum)];
+			return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
 	}
 
 	@Override
@@ -102,6 +103,12 @@ public class University implements Organization{
 	public String getRandomGradCourse() {
 		Department dept = m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
 		return dept.getRandomGradCourse();
+	}
+
+	public int getRandomCollege() {
+		if (m_hasWomanCollege)
+			return Lib.getRandomFromRange(1, m_collegeNum - 1);
+		else return Lib.getRandomFromRange(0, m_collegeNum - 1); 
 	}
 
 }

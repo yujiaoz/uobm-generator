@@ -103,7 +103,7 @@ public abstract class RdfWriter implements Writer {
 				+ id + "\">";
 		out.println(s);
 	}
-
+	
 	/**
 	 * Implementation of Writer:startAboutSection.
 	 */
@@ -149,7 +149,7 @@ public abstract class RdfWriter implements Writer {
 
 		out.println(s);
 	}
-
+	
 	public void addProperty(String property, String value, boolean isResource) {
 		String s;
 		if (isResource) {
@@ -159,6 +159,13 @@ public abstract class RdfWriter implements Writer {
 			s = "   <" + T_ONTO_PREFIX + property + ">" + value + "</"
 					+ T_ONTO_PREFIX + property + ">";
 		}
+		out.println(s);
+	}
+
+	public void addTypeProperty(String value) {
+		String s;
+		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\""
+					+ value + "\" />";
 		out.println(s);
 	}
 

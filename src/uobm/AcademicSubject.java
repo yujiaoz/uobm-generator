@@ -44,4 +44,6 @@ public class AcademicSubject {
         "Physics",
         "Statistics"
 	};
+	
+	public static final int LENGTH = TOKEN.length;
 }

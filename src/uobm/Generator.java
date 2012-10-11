@@ -11,7 +11,7 @@ public class Generator {
 
 	public static void main(String[] args) {
 		int univNum = 1, startIndex = 0, seed = 0;
-		String ontology = null;
+		String ontology = "http://semantics.crl.ibm.com/univ-bench-dl.owl";
 
 		try {
 			String arg;
@@ -107,16 +107,16 @@ public class Generator {
 		System.out.println("Completed!");
 	}
 
-	public LinkedList<String> getOtherPeopleList(Organization o, String ID, int num) {
+	public LinkedList<String> getOtherPeopleList(Organization o, String ID, int num, int ratio) {
 		LinkedList<String> list = new LinkedList<String>();
 		HashSet<String> hash = new HashSet<String>();
 		String people;
 
 		hash.add(ID);
 		for (int i = 0; i < num; ++i) {
-			people = getRandomPeople(o);
+			people = getRandomPeople(o, ratio);
 			while (hash.contains(people))
-				people = getRandomPeople(o);
+				people = getRandomPeople(o, ratio);
 			hash.add(people);
 			list.add(people);
 		}
@@ -124,8 +124,8 @@ public class Generator {
 		return list;
 	}
 
-	private String getRandomPeople(Organization o) {
-		if (Lib.getRandomFromRange(0, Class.R_OUTSIDE_DEPT) == 0) 
+	private String getRandomPeople(Organization o, int ratio) {
+		if (Lib.getRandomFromRange(0, ratio) == 0) 
 			return getRandomPeople();
 		else return o.getRandomPeople(); 
 	}
@@ -152,22 +152,20 @@ public class Generator {
 	}
 
 	public void addSameHomeTownAttributes(Organization o, Writer m_writer, String ID) {
-		int num = Lib.getRandomFromRange(Property.SAMEHOMETOWN_MIN,
-				Property.SAMEHOMETOWN_MAX);
-		LinkedList<String> list = getOtherPeopleList(o, ID, num);
+		int num = Lib.getRandomFromRange(Property.SAMEHOMETOWN_MIN, Property.SAMEHOMETOWN_MAX);
+		LinkedList<String> list = getOtherPeopleList(o, ID, num, Property.R_TOWN_OUTSIDE_DEPT);
 		for (int i = 0; i < num; ++i)
-			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(),
-					true);
+			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(), true);
 
 	}
 
 	public void addIsFriendOfAttributes(Organization o, Writer m_writer, String ID) {
 		int num = Lib.getRandomFromRange(Property.FRIENDOF_MIN, Property.FRIENDOF_MAX);
-		LinkedList<String> list = getOtherPeopleList(o, ID, num);
+		LinkedList<String> list = getOtherPeopleList(o, ID, num, Property.R_FRIEND_OUTSIDE_DEPT);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_FRIEND, list.remove(), true);
 	}
-
+	
 	public void addLikeAttributes(Writer m_writer) {
 		int num = Lib.getRandomFromRange(Property.LIKE_MIN, Property.LIKE_MAX);
 		LinkedList<String> list = getInterestList(num);
@@ -182,7 +180,7 @@ public class Generator {
 		int num = Lib.getRandomFromRange(Class.FAN_MIN, Class.FAN_MAX);
 		LinkedList<String> list = getLoverList(num);
 		for (int i = 0; i < num; ++i)
-			m_writer.addProperty(RdfWriter.T_RDF_TYPE, list.remove(), true);
+			m_writer.addTypeProperty(list.remove());
 	}
 
 	public LinkedList<String> getCourseList(Organization o, int num) {
@@ -242,6 +240,10 @@ public class Generator {
 	private String getRandomGradCourse() {
 		Organization univ = getRandomUniv();
 		return univ.getRandomGradCourse();
+	}
+
+	public String getRandomMajor() {
+		return AcademicSubject.TOKEN[Lib.getRandomFromRange(0, AcademicSubject.LENGTH - 1)];
 	}
 }
 

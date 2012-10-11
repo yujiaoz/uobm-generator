@@ -17,14 +17,14 @@ public class Department implements Organization {
 	Writer m_writer;
 	int m_chair;
 	Generator m_gen;
-	int m_deptIndex, m_univIndex;
+	int m_deptIndex, m_univIndex, m_collegeIndex;
 	String m_filename;
 
 	int total_facultyNum, total_studentNum;
 
-	public Department(Generator gen, int univ, int dept, String prefix) {
-		m_groupNum = Lib.getRandomFromRange(Class.RESEARCHGROUP_MIN,
-				Class.RESEARCHGROUP_MAX);
+	public Department(University univ, int dept, String prefix) {
+		m_groupNum = Lib.getRandomFromRange(Class.RESEARCHGROUP_MIN, Class.RESEARCHGROUP_MAX);
+		m_collegeIndex = univ.getRandomCollege();
 
 		/*
 		 * the number of faculty
@@ -57,12 +57,12 @@ public class Department implements Organization {
 		m_gradCourseNum = 0;
 		m_publicationNum = 0;
 		
-		m_gen = gen;
-		m_writer = new OwlWriter(gen.ontology);
-		m_chair = Lib.getRandomFromRange(0, m_professorNum);
-		m_univIndex = univ;
+		m_gen = univ.m_gen;
+		m_writer = new OwlWriter(m_gen.ontology);
+		m_chair = Lib.getRandomFromRange(0, m_professorNum - 1);
+		m_univIndex = univ.m_index;
 		m_deptIndex = dept;
-		m_ID = Class.getDeptID(univ, dept);
+		m_ID = Class.getDeptID(univ.m_index, dept);
 		m_filename = prefix + Class.INDEX_DELIMITER + "dept" + m_deptIndex + ".owl";
 	}
 
@@ -75,6 +75,12 @@ public class Department implements Organization {
 	public void generateFaculty() {
 		m_writer.start();
 		m_writer.startFile(m_filename);
+		
+		m_writer.startSection(Class.INDEX_DEPT, m_ID);
+		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_DEPT, m_deptIndex), true);
+		m_writer.addProperty(Property.INDEX_SUBORG, Class.getCollegeID(m_univIndex, m_collegeIndex), true);
+		m_writer.endSection(Class.INDEX_DEPT);
+		
 		generateProfs();
 		generateAssoProfs();
 		generateAsstProfs();
@@ -113,10 +119,10 @@ public class Department implements Organization {
 			m_writer.endSection(Class.INDEX_TA);
 		}
 		
-		list = Lib.getRandomList(m_TANum, m_gradStudNum);
+		list = Lib.getRandomList(m_RANum, m_gradStudNum);
 		for (int i: list) {
 			m_writer.startSection(Class.INDEX_RA, Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, i));
-			m_writer.endSection(Class.INDEX_TA);
+			m_writer.endSection(Class.INDEX_RA);
 		}
 	}
 
@@ -174,9 +180,9 @@ public class Department implements Organization {
 		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
 
 		if (Lib.getRandomFromRange(0, 1) == 0)
-			m_writer.addProperty(RdfWriter.T_RDF_TYPE, "Man", true);
+			m_writer.addTypeProperty("Man");
 		else
-			m_writer.addProperty(RdfWriter.T_RDF_TYPE, "Woman", true);
+			m_writer.addTypeProperty("Woman");
 
 		m_gen.addSameHomeTownAttributes(this, m_writer, ID);
 		m_gen.addIsFriendOfAttributes(this, m_writer, ID);
@@ -272,15 +278,15 @@ public class Department implements Organization {
 		LinkedList<String> list;
 		String ID;
 		for (int i = 0; i < m_underStudNum; ++i) {
-			m_writer.startSection(Class.INDEX_STUDENT, ID = Class.getOtherID(m_ID, Class.INDEX_STUDENT, i));
-			generatePerson(ID, Class.getName(Class.INDEX_STUDENT, i));
+			m_writer.startSection(Class.INDEX_UNDERSTUD, ID = Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, i));
+			generatePerson(ID, Class.getName(Class.INDEX_UNDERSTUD, i));
 			num = Lib.getRandomFromRange(Property.UNDERSTUD_COURSE_MIN, Property.UNDERSTUD_COURSE_MAX);
 			list = m_gen.getCourseList(this, num);
 			while (!list.isEmpty())
 				m_writer.addProperty(Property.INDEX_TAKES, list.remove(), true);
 			if (Lib.getRandomFromRange(0, Class.R_UNDERSTUD_ADVISOR) == 0)
 				m_writer.addProperty(Property.INDEX_ADVISED, getRandomPerson(1, total_facultyNum), true);
-			m_writer.endSection(Class.INDEX_STUDENT);
+			m_writer.endSection(Class.INDEX_UNDERSTUD);
 		}
 	}
 	
@@ -291,6 +297,7 @@ public class Department implements Organization {
 		for (int i = 0; i < m_gradStudNum; ++i) {
 			m_writer.startSection(Class.INDEX_GRADSTUD, ID = Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, i));
 			generatePerson(ID, Class.getName(Class.INDEX_GRADSTUD, i));
+			m_writer.addProperty(Property.INDEX_MAJOR, m_gen.getRandomMajor(), true);
 			num = Lib.getRandomFromRange(Property.GRADSTUD_COURSE_MIN, Property.GRADSTUD_COURSE_MAX);
 			list = m_gen.getGradCourseList(this, num);
 			while (!list.isEmpty())
