@@ -6,9 +6,10 @@ import java.util.LinkedList;
 public class Department implements Organization {
 
 	int m_groupNum;
-	int m_professorNum, m_assoProfNum, m_asstProfNum, m_lecturerNum,
-			m_vistProfNum;
+	int m_professorNum, m_assoProfNum, m_asstProfNum, m_lecturerNum, m_vistProfNum;
 	int m_underStudNum, m_gradStudNum;
+	int m_systemsStaffNum, m_clericalStaffNum;
+	
 	int m_underCourseNum, m_gradCourseNum;
 	int m_publicationNum;
 	String m_ID;
@@ -29,12 +30,9 @@ public class Department implements Organization {
 		/*
 		 * the number of faculty
 		 */
-		m_professorNum = Lib.getRandomFromRange(Class.FULLPROF_MIN,
-				Class.FULLPROF_MAX);
-		m_assoProfNum = Lib.getRandomFromRange(Class.ASSOPROF_MIN,
-				Class.ASSOPROF_MAX);
-		m_asstProfNum = Lib.getRandomFromRange(Class.ASSTPROF_MIN,
-				Class.ASSTPROF_MAX);
+		m_professorNum = Lib.getRandomFromRange(Class.FULLPROF_MIN,	Class.FULLPROF_MAX);
+		m_assoProfNum = Lib.getRandomFromRange(Class.ASSOPROF_MIN, Class.ASSOPROF_MAX);
+		m_asstProfNum = Lib.getRandomFromRange(Class.ASSTPROF_MIN, Class.ASSTPROF_MAX);
 		m_lecturerNum = Lib.getRandomFromRange(Class.LEC_MIN, Class.LEC_MAX);
 
 		total_facultyNum = m_professorNum + m_assoProfNum + m_asstProfNum + m_lecturerNum;
@@ -50,6 +48,9 @@ public class Department implements Organization {
 		m_TANum = Lib.getRandomFromRange(m_gradCourseNum / Class.R_GRADSTUD_TA_MAX, m_gradStudNum / Class.R_GRADSTUD_TA_MIN);
 		m_RANum = Lib.getRandomFromRange(m_gradCourseNum / Class.R_GRADSTUD_RA_MAX, m_gradStudNum / Class.R_GRADSTUD_RA_MIN);
 
+		m_systemsStaffNum = Lib.getRandomFromRange(Class.SYSTEMS_STAFF_MIN, Class.SYSTEMS_STAFF_MAX);
+		m_clericalStaffNum = Lib.getRandomFromRange(Class.CLERICAL_STAFF_MIN, Class.CLERICAL_STAFF_MAX);
+		
 		/*
 		 * initial the list of courses
 		 */
@@ -94,13 +95,33 @@ public class Department implements Organization {
 		
 		generateCourses();
 		generatePublications();
-		generateTARA();
-		generateResearchGroup();
+		generateTARAs();
+		generateResearchGroups();
+		generateStaffs();
 		m_writer.endFile();
 		m_writer.end();
 	}
 	
-	private void generateResearchGroup() {
+	private void generateStaffs() {
+		String ID;
+		for (int i = 0; i < m_clericalStaffNum; ++i) {
+			ID = Class.getOtherID(m_ID, Class.INDEX_CLERICALSTAFF, i);
+			m_writer.startSection(Class.INDEX_CLERICALSTAFF, ID);
+			m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
+			generatePerson(ID, Class.getName(Class.INDEX_CLERICALSTAFF, i));
+			m_writer.endSection(Class.INDEX_CLERICALSTAFF);
+		}
+			
+		for (int i = 0; i < m_systemsStaffNum; ++i) {
+			ID = Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, i);
+			m_writer.startSection(Class.INDEX_SYSTEMSSTAFF, ID);
+			m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
+			generatePerson(ID, Class.getName(Class.INDEX_SYSTEMSSTAFF, i));
+			m_writer.endSection(Class.INDEX_SYSTEMSSTAFF);
+		}
+	}
+
+	private void generateResearchGroups() {
 		String groupID;
 		for (int i = 0; i < m_groupNum; ++i) {
 			groupID = Class.getOtherID(m_ID, Class.INDEX_RESEARCHGROUP, i);
@@ -110,7 +131,7 @@ public class Department implements Organization {
 		}
 	}
 
-	private void generateTARA() {
+	private void generateTARAs() {
 		LinkedList<Integer> list = Lib.getRandomList(m_TANum, m_gradStudNum);
 		LinkedList<Integer> courseList = Lib.getRandomList(m_TANum, m_underCourseNum);
 		for (int i: list) {
@@ -318,10 +339,20 @@ public class Department implements Organization {
 		if (index > total_facultyNum) {
 			index -= total_facultyNum;
 			
-			if (index > m_gradStudNum) index -= m_gradStudNum;
-			else return Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, index - 1);
-			
-			return Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, index - 1);
+			if (index > total_studentNum) {
+				index -= total_studentNum; 
+				
+				if (index > m_systemsStaffNum) index -= m_systemsStaffNum;
+				else return Class.getOtherID(m_ID, Class.INDEX_CLERICALSTAFF, index);
+				
+				return Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, index);
+			}
+			else {
+				if (index > m_gradStudNum) index -= m_gradStudNum;
+				else return Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, index - 1);
+				
+				return Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, index - 1);
+			}
 		}
 		else {
 			if (index > m_professorNum) index -= m_professorNum;

@@ -32,6 +32,8 @@ public class Class {
 	static final int INDEX_DEAN = 22;
 	static final int INDEX_RESEARCH = 23;
 	static final int INDEX_RESEARCHGROUP = 24;
+	static final int INDEX_SYSTEMSSTAFF = 25;
+	static final int INDEX_CLERICALSTAFF = 26;
 
 	/** class name strings */
 	public static final String[] TOKEN = { "University", // CS_C_UNIV
@@ -58,7 +60,9 @@ public class Class {
 			"Chair", // CS_C_CHAIR
 			"Dean", // CS_C_DEAN
 			"Research", // CS_C_RESEARCH
-			"ResearchGroup" // CS_C_RESEARCHGROUP
+			"ResearchGroup", // CS_C_RESEARCHGROUP
+			"SystemsStaff", 
+			"ClericalStaff"
 	};
 	/** number of classes */
 	static final int LENGTH = TOKEN.length;
@@ -143,6 +147,13 @@ public class Class {
 
 	public static final int FAN_MIN = 0;
 	public static final int FAN_MAX = 3;
+	
+	public static final int SYSTEMS_STAFF_MIN = 15;
+	public static final int SYSTEMS_STAFF_MAX = 19;
+	
+	public static final int CLERICAL_STAFF_MIN = 1;
+	public static final int CLERICAL_STAFF_MAX = 2;
+	
 
 	public static String getUnivID(int index) {
 		return "http://www.university" + index + ".edu";
