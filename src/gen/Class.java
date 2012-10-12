@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 public class Class {
 
@@ -34,6 +34,7 @@ public class Class {
 	static final int INDEX_RESEARCHGROUP = 24;
 	static final int INDEX_SYSTEMSSTAFF = 25;
 	static final int INDEX_CLERICALSTAFF = 26;
+	static final int INDEX_SAMEINDIVIDUAL = 27;
 
 	/** class name strings */
 	public static final String[] TOKEN = { "University", // CS_C_UNIV
@@ -62,7 +63,8 @@ public class Class {
 			"Research", // CS_C_RESEARCH
 			"ResearchGroup", // CS_C_RESEARCHGROUP
 			"SystemsStaff", 
-			"ClericalStaff"
+			"ClericalStaff", 
+			"SameIndividual"
 	};
 	/** number of classes */
 	static final int LENGTH = TOKEN.length;
@@ -146,7 +148,7 @@ public class Class {
 	public static final int R_GRADSTUD_ADVISOR = 1;
 
 	public static final int FAN_MIN = 0;
-	public static final int FAN_MAX = 3;
+	public static final int FAN_MAX = 2;
 	
 	public static final int SYSTEMS_STAFF_MIN = 15;
 	public static final int SYSTEMS_STAFF_MAX = 19;

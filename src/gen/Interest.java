@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 import java.util.LinkedList;
 

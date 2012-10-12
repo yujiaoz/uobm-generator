@@ -17,7 +17,7 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package uobm;
+package gen;
 
 import java.io.*;
 
@@ -68,6 +68,10 @@ public abstract class RdfWriter implements Writer {
 		try {
 			out = new PrintStream(new FileOutputStream(fileName));
 			s = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+			out.println(s);
+			s = "<!DOCTYPE rdf:RDF [\n" + 
+				"  <!ENTITY ub \"http://semantics.crl.ibm.com/univ-bench-dl.owl#\">\n" + 
+				"]>";
 			out.println(s);
 			s = "<" + T_RDF_PREFIX + "RDF";
 			out.println(s);
@@ -164,7 +168,7 @@ public abstract class RdfWriter implements Writer {
 
 	public void addTypeProperty(String value) {
 		String s;
-		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\""
+		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\"&" + T_ONTO_NS + ";"
 					+ value + "\" />";
 		out.println(s);
 	}

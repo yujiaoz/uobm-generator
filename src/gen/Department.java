@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -12,8 +12,11 @@ public class Department implements Organization {
 	
 	int m_underCourseNum, m_gradCourseNum;
 	int m_publicationNum;
-	String m_ID;
 	int m_TANum, m_RANum;
+	
+	int m_sameIndividualNum = 0;
+	
+	String m_ID;
 
 	Writer m_writer;
 	int m_chair;
@@ -179,18 +182,38 @@ public class Department implements Organization {
 		}
 		m_writer.endSection(Class.INDEX_PUBLICATION);
 	}
+	
+	String assignSameIndividual() {
+		String ID = null;
+		if (Lib.getRandomFromRange(0, Property.R_SAME_AUTHOR) == 0)
+			m_writer.addProperty(Property.INDEX_TAUGHTBY, ID = Class.getOtherID(m_ID, Class.INDEX_SAMEINDIVIDUAL, m_sameIndividualNum++), true);
+		return ID;
+	}
 
 	private void generateCourses() {
+		String sameIndividual;
 		for (int i = 0; i < m_underCourseNum; ++i) {
 			m_writer.startSection(Class.INDEX_COURSE, Class.getOtherID(m_ID, Class.INDEX_COURSE, i));
 			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_COURSE, i), true);
+			sameIndividual = assignSameIndividual();
 			m_writer.endSection(Class.INDEX_COURSE);
+			if (sameIndividual != null) {
+				m_writer.startSection(Class.INDEX_PERSON, sameIndividual);
+				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual);
+				m_writer.endSection(Class.INDEX_PERSON);
+			}
 		}
 		
 		for (int i = 0; i < m_gradCourseNum; ++i) {
 			m_writer.startSection(Class.INDEX_GRADCOURSE, Class.getOtherID(m_ID, Class.INDEX_GRADCOURSE, i));
 			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_GRADCOURSE, i), true);
+			sameIndividual = assignSameIndividual();
 			m_writer.endSection(Class.INDEX_GRADCOURSE);
+			if (sameIndividual != null) {
+				m_writer.startSection(Class.INDEX_PERSON, sameIndividual);
+				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual);
+				m_writer.endSection(Class.INDEX_PERSON);
+			}
 		}
 	}
 
@@ -336,40 +359,41 @@ public class Department implements Organization {
 	
 	public String getRandomPerson(int min, int max) {
 		int index = Lib.getRandomFromRange(min, max);
-		if (index > total_facultyNum) {
-			index -= total_facultyNum;
-			
-			if (index > total_studentNum) {
-				index -= total_studentNum; 
-				
-				if (index > m_systemsStaffNum) index -= m_systemsStaffNum;
-				else return Class.getOtherID(m_ID, Class.INDEX_CLERICALSTAFF, index);
-				
-				return Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, index);
+		
+		if (index <= total_facultyNum) {
+			if (index <= m_professorNum + m_assoProfNum) {
+				if (index <= m_professorNum)
+					return Class.getOtherID(m_ID, Class.INDEX_FULLPROF, index - 1);
+				index -= m_professorNum;
+				return Class.getOtherID(m_ID, Class.INDEX_ASSOPROF, index - 1);
 			}
-			else {
-				if (index > m_gradStudNum) index -= m_gradStudNum;
-				else return Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, index - 1);
-				
-				return Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, index - 1);
-			}
-		}
-		else {
-			if (index > m_professorNum) index -= m_professorNum;
-			else return Class.getOtherID(m_ID, Class.INDEX_FULLPROF, index - 1);
 			
-			if (index > m_assoProfNum) index -= m_assoProfNum;
-			else return Class.getOtherID(m_ID, Class.INDEX_ASSOPROF, index - 1);
-			
-			if (index > m_asstProfNum) index -= m_asstProfNum;
-			else return Class.getOtherID(m_ID, Class.INDEX_ASSTPROF, index - 1);
-			
-			if (index > m_vistProfNum) index -= m_vistProfNum;
-			else return Class.getOtherID(m_ID, Class.INDEX_VISTPROF, index - 1);
-			
+			index -= m_professorNum + m_assoProfNum;
+			if (index <= m_asstProfNum)
+				return Class.getOtherID(m_ID, Class.INDEX_ASSTPROF, index - 1);
+			index -= m_asstProfNum;
 			return Class.getOtherID(m_ID, Class.INDEX_LECTURE, index - 1);
 		}
-
+		else {
+			index -= total_facultyNum;
+			if (index <= total_studentNum) { 
+				if (index <= m_gradStudNum)
+					return Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, index - 1);
+				index -= m_gradStudNum;
+				return Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, index - 1);
+			}
+				
+			index -= total_studentNum;
+			if (index <= m_systemsStaffNum)
+				return Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, index - 1);
+			index -= m_systemsStaffNum;
+			
+			if (index > m_clericalStaffNum) {
+				System.err.println("error");
+				throw new Error();
+			}
+			return Class.getOtherID(m_ID, Class.INDEX_CLERICALSTAFF, index - 1);
+		}
 	}
 
 	@Override
@@ -397,6 +421,11 @@ public class Department implements Organization {
 	@Override
 	public String getRandomGradCourse() {
 		return Class.getName(Class.INDEX_GRADCOURSE, Lib.getRandomFromRange(0, m_gradCourseNum - 1));
+	}
+
+	@Override
+	public String getRandomFaculty() {
+		return getRandomPerson(1, total_facultyNum);
 	}
 
 }

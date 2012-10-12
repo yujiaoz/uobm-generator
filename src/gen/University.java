@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 public class University implements Organization{
 
@@ -20,7 +20,8 @@ public class University implements Organization{
 		m_gen = gen;
 		m_writer = new OwlWriter(gen.ontology);
 		m_index = index;
-		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "univ" + index;
+//		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "univ" + index;
+		m_filename = "/users/yzhou/workspace/OWLim/preload_generated_uobm/univ" + index;
 		
 		m_hasWomanCollege = Lib.getRandomFromRange(0, Class.R_WOMAN_COLLEGE) == 0;
 		m_collegeNum = Lib.getRandomFromRange(Class.COLL_MIN, Class.COLL_MAX);
@@ -109,6 +110,11 @@ public class University implements Organization{
 		if (m_hasWomanCollege)
 			return Lib.getRandomFromRange(1, m_collegeNum - 1);
 		else return Lib.getRandomFromRange(0, m_collegeNum - 1); 
+	}
+
+	@Override
+	public String getRandomFaculty() {
+		return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)].getRandomFaculty();
 	}
 
 }

@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 public class Property {
 
@@ -28,6 +28,7 @@ public class Property {
 	static final int INDEX_ENROLL = 23;
 	static final int INDEX_FIRSTNAME = 24;
 	static final int INDEX_LASTNAME = 25;
+	static final int INDEX_TAUGHTBY = 26;
 
 	/** property name strings */
 	static final String[] TOKEN = { "name", "takesCourse", "teacherOf",
@@ -37,7 +38,7 @@ public class Property {
 			"researchInterest", "emailAddress", "telephone",
 			"subOrganizationOf", "worksFor", "hasMajor", "hasSameHomeTownWith",
 			"isFriendOf", "like", "love", "isCrazyAbout", "isStudentOf",
-			"enrollIn", "firstName", "lastName" };
+			"enrollIn", "firstName", "lastName", "isTaughtBy" };
 	/** number of properties */
 	static final int LENGTH = TOKEN.length;
 
@@ -70,7 +71,7 @@ public class Property {
 	public static final int SAMEHOMETOWN_MIN = 0;
 	public static final int SAMEHOMETOWN_MAX = 2;
 	public static final int FRIENDOF_MIN = 1;
-	public static final int FRIENDOF_MAX = 4;
+	public static final int FRIENDOF_MAX = 3;
 	public static final int LIKE_MIN = 0;
 	public static final int LIKE_MAX = 3;
 	
@@ -81,6 +82,6 @@ public class Property {
 	
 	public static final int R_FRIEND_OUTSIDE_DEPT = 4;
 	public static final int R_TOWN_OUTSIDE_DEPT = 0;
-
+	public static final int R_SAME_AUTHOR = 30;
 
 }

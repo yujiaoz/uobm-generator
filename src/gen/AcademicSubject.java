@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 public class AcademicSubject {
 

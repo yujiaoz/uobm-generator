@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 public interface Organization {
 	
@@ -15,5 +15,7 @@ public interface Organization {
 	public String getRandomCourse();
 	
 	public String getRandomGradCourse();
+	
+	public String getRandomFaculty();
 	
 }

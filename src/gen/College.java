@@ -1,4 +1,4 @@
-package uobm;
+package gen;
 
 import java.util.LinkedList;
 
@@ -92,6 +92,11 @@ public class College implements Organization{
 
 	@Override
 	public String getRandomGradCourse() {
+		return null;
+	}
+
+	@Override
+	public String getRandomFaculty() {
 		return null;
 	}
 
