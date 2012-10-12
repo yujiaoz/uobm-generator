@@ -6,7 +6,9 @@ public interface Organization {
 	
 	public int getIndex();
 	
-	void generate();
+	void generateFaculty();
+	
+	void generateStudents();
 	
 	public Organization getRandomSubOrgan();
 	

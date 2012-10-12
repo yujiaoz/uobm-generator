@@ -69,6 +69,8 @@ public class Generator {
 			System.exit(0);
 		}
 
+		Class.setup(univNum);
+		
 		new Generator().start(univNum, startIndex, seed, ontology);
 	}
 
@@ -103,7 +105,7 @@ public class Generator {
 			universities[i] = new University(this, i);
 
 		for (int i = 0; i < univNum; ++i)
-			universities[i].generate();
+			universities[i].generateFaculty();
 		System.out.println("Completed!");
 	}
 
@@ -140,7 +142,7 @@ public class Generator {
 	}
 	
 	public String getUnivInst() {
-		return Class.getName(Class.INDEX_UNIV, Lib.getRandomFromRange(0, Class.UNIV_NUM - 1));
+		return Class.getUnivID(Lib.getRandomFromRange(0, Class.UNIV_NUM - 1));
 	}
 
 	public LinkedList<String> getInterestList(int num) {
@@ -152,7 +154,7 @@ public class Generator {
 	}
 
 	public void addSameHomeTownAttributes(Organization o, Writer m_writer, String ID) {
-		int num = Lib.getRandomFromRange(Property.SAMEHOMETOWN_MIN, Property.SAMEHOMETOWN_MAX);
+		int num = getDistributedRandomFromRange(Property.SAMEHOMETOWN_MIN, Property.SAMEHOMETOWN_MAX);
 		LinkedList<String> list = getOtherPeopleList(o, ID, num, Property.R_TOWN_OUTSIDE_DEPT);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(), true);
@@ -167,20 +169,34 @@ public class Generator {
 	}
 	
 	public void addLikeAttributes(Writer m_writer) {
-		int num = Lib.getRandomFromRange(Property.LIKE_MIN, Property.LIKE_MAX);
+		int num = getDistributedRandomFromRange(Property.LIKE_MIN, Property.LIKE_MAX);
 		LinkedList<String> list = getInterestList(num);
-		for (int i = 0; i < num; ++i)
-			if (Lib.getRandomFromRange(0, 1) == 0)
-				m_writer.addProperty(Property.INDEX_LIKE, list.remove(), true);
-			else
+		for (int i = 0, flag; i < num; ++i)
+			if ((flag = Lib.getRandomFromRange(0, 3)) == 0)
 				m_writer.addProperty(Property.INDEX_LOVE, list.remove(), true);
+			else if (flag == 3)
+				m_writer.addProperty(Property.INDEX_CRAZY, list.remove(), true);
+			else 
+				m_writer.addProperty(Property.INDEX_LIKE, list.remove(), true);
 	}
 
 	public void addFanAttributes(Writer m_writer) {
-		int num = Lib.getRandomFromRange(Class.FAN_MIN, Class.FAN_MAX);
+		int num = getDistributedRandomFromRange(Class.FAN_MIN, Class.FAN_MAX);
 		LinkedList<String> list = getLoverList(num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addTypeProperty(list.remove());
+	}
+	
+	private static final int[] bench2 = {2, 4, 8, 16, 32, 64};
+	private static final int[] bench4 = {4, 16, 64, 256, 1024, 4096};
+
+	private static int getDistributedRandomFromRange(int min, int max) {
+		int num = Lib.getRandomFromRange(1 << (min << 1), (1 << ((max + 1) << 1)) - 1);
+		for (int i = min; i <= max; i++)
+			if (num < bench4[i])
+				return max - i + min;
+		System.out.println("error in distributed random");
+		return 0;
 	}
 
 	public LinkedList<String> getCourseList(Organization o, int num) {
@@ -243,7 +259,11 @@ public class Generator {
 	}
 
 	public String getRandomMajor() {
-		return AcademicSubject.TOKEN[Lib.getRandomFromRange(0, AcademicSubject.LENGTH - 1)];
+		return RdfWriter.EntityPrefix + AcademicSubject.TOKEN[Lib.getRandomFromRange(0, AcademicSubject.LENGTH - 1)];
+	}
+
+	public String getRandomPublicationGenre() {
+		return Publication.TOKEN[Lib.getRandomFromRange(0, Publication.LENGTH - 1)];
 	}
 }
 

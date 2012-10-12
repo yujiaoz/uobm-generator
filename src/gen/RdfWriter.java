@@ -23,7 +23,7 @@ import java.io.*;
 
 public abstract class RdfWriter implements Writer {
 	/** abbreviation of univ-bench ontology namesapce */
-	static final String T_ONTO_NS = "ub";
+	static final String T_ONTO_NS = "benchmark-dl";
 	/** prefix of univ-bench ontology namespace */
 	static final String T_ONTO_PREFIX = T_ONTO_NS + ":";
 	/** abbreviation of RDF namespace */
@@ -44,6 +44,8 @@ public abstract class RdfWriter implements Writer {
 	static final String T_RDF_TYPE = T_RDF_PREFIX + "type";
 	/** white space string */
 	static final String T_SPACE = " ";
+	
+	public static final String EntityPrefix = "&" + T_ONTO_NS + ";";
 
 	/** output stream */
 	PrintStream out = null;
@@ -70,7 +72,7 @@ public abstract class RdfWriter implements Writer {
 			s = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 			out.println(s);
 			s = "<!DOCTYPE rdf:RDF [\n" + 
-				"  <!ENTITY ub \"http://semantics.crl.ibm.com/univ-bench-dl.owl#\">\n" + 
+				"  <!ENTITY " + T_ONTO_NS + " \"http://semantics.crl.ibm.com/univ-bench-dl.owl#\">\n" + 
 				"]>";
 			out.println(s);
 			s = "<" + T_RDF_PREFIX + "RDF";
@@ -168,8 +170,7 @@ public abstract class RdfWriter implements Writer {
 
 	public void addTypeProperty(String value) {
 		String s;
-		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\"&" + T_ONTO_NS + ";"
-					+ value + "\" />";
+		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\"" 					+ value + "\" />";
 		out.println(s);
 	}
 

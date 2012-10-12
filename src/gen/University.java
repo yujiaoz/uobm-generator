@@ -47,7 +47,7 @@ public class University implements Organization{
 	}
 	
 	@Override
-	public void generate() {
+	public void generateFaculty() {
 		m_writer.start();
 		m_writer.startFile(m_filename);
 		
@@ -56,11 +56,14 @@ public class University implements Organization{
 		m_writer.endSection(Class.INDEX_UNIV);
 		
 		for (int i = 0; i < m_collegeNum; ++i)
-			m_colleges[i].generate();
+			m_colleges[i].generateFaculty();
 		
 		for (int i = 0; i < m_deptNum; ++i)
 			m_depts[i].generateFaculty();
 		
+	}
+	
+	public void generateStudents() {
 		for (int i = 0; i < m_deptNum; ++i)
 			m_depts[i].generateStudents();
 		

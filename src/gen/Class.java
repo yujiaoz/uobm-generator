@@ -35,6 +35,8 @@ public class Class {
 	static final int INDEX_SYSTEMSSTAFF = 25;
 	static final int INDEX_CLERICALSTAFF = 26;
 	static final int INDEX_SAMEINDIVIDUAL = 27;
+	static final int INDEX_OTHERSTAFF = 28;
+	static final int INDEX_WOMANCOLLEGE = 29;
 
 	/** class name strings */
 	public static final String[] TOKEN = { "University", // CS_C_UNIV
@@ -64,19 +66,28 @@ public class Class {
 			"ResearchGroup", // CS_C_RESEARCHGROUP
 			"SystemsStaff", 
 			"ClericalStaff", 
-			"SameIndividual"
+			"SameIndividual", 
+			"other_staff", 
+			"WomanCollege"
 	};
 	/** number of classes */
 	static final int LENGTH = TOKEN.length;
 
 	/** size of the pool of the undergraduate courses for one department */
-	public static final int UNDER_COURSE_NUM = 100; // must >= max faculty # *
+	public static int UNDER_COURSE_NUM = 100; // must >= max faculty # *
 													// FACULTY_COURSE_MAX
 	/** size of the pool of the graduate courses for one department */
-	public static final int GRAD_COURSE_NUM = 100; // must >= max faculty # *
+	public static int GRAD_COURSE_NUM = 100; // must >= max faculty # *
 													// FACULTY_GRADCOURSE_MAX
 	/** size of the pool of universities */
-	public static final int UNIV_NUM = 1000;
+	public static int UNIV_NUM = 1000;
+
+	public static void setup(int num) {
+		UNIV_NUM = num * 5;
+		UNDER_COURSE_NUM = 50 * Property.FACULTY_COURSE_MAX;
+		GRAD_COURSE_NUM = 50 * Property.FACULTY_GRADCOURSE_MAX;
+	}
+	
 	/** size of the pool of reasearch areas */
 	public static final int RESEARCH_NUM = 30;
 	/** minimum number of departments in a university */
@@ -92,9 +103,9 @@ public class Class {
 	public static final int R_WOMAN_COLLEGE = 4;
 
 	/** minimum number of research groups in a department */
-	public static final int RESEARCHGROUP_MIN = 10;
+	public static final int RESEARCHGROUP_MIN = 8;
 	/** maximum number of research groups in a department */
-	public static final int RESEARCHGROUP_MAX = 20;
+	public static final int RESEARCHGROUP_MAX = 12;
 
 	// faculty number: 30-42
 	/** minimum number of full professors in a department */
@@ -106,9 +117,9 @@ public class Class {
 	/** maximum number of associate professors in a department */
 	public static final int ASSOPROF_MAX = 14;
 	/** minimum number of assistant professors in a department */
-	public static final int ASSTPROF_MIN = 8;
+	public static final int ASSTPROF_MIN = 7;
 	/** maximum number of assistant professors in a department */
-	public static final int ASSTPROF_MAX = 11;
+	public static final int ASSTPROF_MAX = 10;
 	/** minimum number of lecturers in a department */
 	public static final int LEC_MIN = 5;
 	/** maximum number of lecturers in a department */
@@ -129,13 +140,13 @@ public class Class {
 	// MUST: FACULTY_COURSE_MIN >= R_GRADSTUD_FACULTY_MAX / R_GRADSTUD_TA_MIN;
 
 	/** minimum ratio of graduate students to TA in a department */
-	public static final int R_GRADSTUD_TA_MIN = 4;
+	public static final int R_GRADSTUD_TA_MIN = 3;
 	/** maximum ratio of graduate students to TA in a department */
-	public static final int R_GRADSTUD_TA_MAX = 5;
+	public static final int R_GRADSTUD_TA_MAX = 4;
 	/** minimum ratio of graduate students to RA in a department */
-	public static final int R_GRADSTUD_RA_MIN = 3;
+	public static final int R_GRADSTUD_RA_MIN = 2;
 	/** maximum ratio of graduate students to RA in a department */
-	public static final int R_GRADSTUD_RA_MAX = 4;
+	public static final int R_GRADSTUD_RA_MAX = 3;
 	/**
 	 * average ratio of undergraduate students to undergraduate student advising
 	 * professors
@@ -150,6 +161,9 @@ public class Class {
 	public static final int FAN_MIN = 0;
 	public static final int FAN_MAX = 2;
 	
+	public static final int OTHER_STAFF_MIN = 13;
+	public static final int OTHER_STAFF_MAX = 17;
+	
 	public static final int SYSTEMS_STAFF_MIN = 15;
 	public static final int SYSTEMS_STAFF_MAX = 19;
 	
@@ -158,16 +172,16 @@ public class Class {
 	
 
 	public static String getUnivID(int index) {
-		return "http://www.university" + index + ".edu";
+		return "http://www.University" + index + ".edu";
 	}
 
 	public static String getDeptID(int univIndex, int deptIndex) {
-		return "http://www.department" + deptIndex + ".university" + univIndex
+		return "http://www.Department" + deptIndex + ".University" + univIndex
 				+ ".edu";
 	}
 
 	public static String getCollegeID(int univIndex, int collegeIndex) {
-		return "http://www.college" + collegeIndex + ".university" + univIndex
+		return "http://www.College" + collegeIndex + ".University" + univIndex
 				+ ".edu";
 	}
 

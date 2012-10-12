@@ -21,10 +21,13 @@ public class College implements Organization{
 		m_isWomanCollege = isWomanCollege;
 		m_depts = new LinkedList<Department>();
 		m_ID = Class.getCollegeID(m_univIndex, m_collegeIndex);
+		
+		if (m_isWomanCollege)
+			m_womanNum = Lib.getRandomFromRange(230, 270);
 	}
 
 	@Override
-	public void generate() {
+	public void generateFaculty() {
 		if (!m_isWomanCollege) {
 			m_writer.startSection(Class.INDEX_COLLEGE,
 					Class.getCollegeID(m_univIndex, m_collegeIndex));
@@ -33,12 +36,12 @@ public class College implements Organization{
 			return;
 		}
 
-		
-		m_writer.startSection(Class.INDEX_COLLEGE, m_ID);
+		m_writer.startSection(Class.INDEX_WOMANCOLLEGE, m_ID);
 		m_writer.addProperty(Property.INDEX_SUBORG, Class.getUnivID(m_univIndex), true);
-		m_writer.endSection(Class.INDEX_COLLEGE);
-
-		m_womanNum = Lib.getRandomFromRange(230, 270);
+		m_writer.endSection(Class.INDEX_WOMANCOLLEGE);
+	}
+	
+	public void generateStudents() {
 		String womanID;
 		for (int i = 0; i < m_womanNum; ++i) {
 			m_writer.startSection(Class.INDEX_PERSON, womanID = Class.getOtherID(m_ID, "woman_student", i));

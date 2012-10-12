@@ -32,7 +32,7 @@ public class Property {
 
 	/** property name strings */
 	static final String[] TOKEN = { "name", "takesCourse", "teacherOf",
-			"hasUndergraduateDegreeFrom", "hasMastersDegreeFrom",
+			"hasUndergraduateDegreeFrom", "hasMasterDegreeFrom",
 			"hasDoctoralDegreeFrom", "isAdvisedBy", "isMemberOf",
 			"publicationAuthor", "isHeadOf", "teachingAssistantOf",
 			"researchInterest", "emailAddress", "telephone",
@@ -45,16 +45,16 @@ public class Property {
 	/*
 	 * about publication rate
 	 */
-	public static final int FULLPROF_PUB_MIN = 15;
-	public static final int FULLPROF_PUB_MAX = 20;
-	public static final int ASSOPROF_PUB_MIN = 10;
-	public static final int ASSOPROF_PUB_MAX = 18;
-	public static final int ASSTPROF_PUB_MIN = 5;
-	public static final int ASSTPROF_PUB_MAX = 10;
+	public static final int FULLPROF_PUB_MIN = 12;
+	public static final int FULLPROF_PUB_MAX = 15;
+	public static final int ASSOPROF_PUB_MIN = 8;
+	public static final int ASSOPROF_PUB_MAX = 11;
+	public static final int ASSTPROF_PUB_MIN = 4;
+	public static final int ASSTPROF_PUB_MAX = 7;
 	public static final int LEC_PUB_MIN = 0;
-	public static final int LEC_PUB_MAX = 5;
+	public static final int LEC_PUB_MAX = 3;
 	public static final int GRADSTUD_PUB_MIN = 0;
-	public static final int GRADSTUD_PUB_MAX = 5;
+	public static final int GRADSTUD_PUB_MAX = 2;
 
 	/*
 	 * about courses
@@ -69,7 +69,7 @@ public class Property {
 	public static final int GRADSTUD_COURSE_MAX = 3;
 
 	public static final int SAMEHOMETOWN_MIN = 0;
-	public static final int SAMEHOMETOWN_MAX = 2;
+	public static final int SAMEHOMETOWN_MAX = 3;
 	public static final int FRIENDOF_MIN = 1;
 	public static final int FRIENDOF_MAX = 3;
 	public static final int LIKE_MIN = 0;
@@ -82,6 +82,6 @@ public class Property {
 	
 	public static final int R_FRIEND_OUTSIDE_DEPT = 4;
 	public static final int R_TOWN_OUTSIDE_DEPT = 0;
-	public static final int R_SAME_AUTHOR = 30;
+	public static final int R_SAME_AUTHOR = 80;
 
 }
