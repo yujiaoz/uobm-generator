@@ -64,6 +64,9 @@ public class University implements Organization{
 	}
 	
 	public void generateStudents() {
+		for (int i = 0; i < m_collegeNum; ++i)
+			m_colleges[i].generateStudents();
+		
 		for (int i = 0; i < m_deptNum; ++i)
 			m_depts[i].generateStudents();
 		
