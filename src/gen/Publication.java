@@ -5,7 +5,7 @@ public class Publication {
 	static String[] TOKEN = {
 		"Book", 
 		"Specification", 
-		"Artical",
+		"Article",
 		"TechnicalReport", 
 		"UnofficialPublication", 
 		"ConferencePaper", 

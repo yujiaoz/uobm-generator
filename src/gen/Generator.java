@@ -10,8 +10,11 @@ public class Generator {
 	private University[] universities;
 
 	public static void main(String[] args) {
-		int univNum = 1, startIndex = 0, seed = 0;
+		int univNum = 100, startIndex = 0, seed = 0;
 		String ontology = "http://semantics.crl.ibm.com/univ-bench-dl.owl";
+		String outputPath = System.getProperty("user.dir") + System.getProperty("file.separator");
+//		String outputPath = "/users/yzhou/scratch/Ontologies/generated/univ";
+//		String outputPath = "/users/yzhou/workspace/OWLim/preload_generated_uobm/univ";
 
 		try {
 			String arg;
@@ -48,6 +51,12 @@ public class Generator {
 						ontology = arg;
 					} else
 						throw new Exception();
+				} else if (arg.equals("-path")) {
+					if (i < args.length) {
+						arg = args[i++];
+						outputPath = arg;
+					} else
+						throw new Exception();
 				} else
 					throw new Exception();
 			}
@@ -71,7 +80,7 @@ public class Generator {
 
 		Class.setup(univNum);
 		
-		new Generator().start(univNum, startIndex, seed, ontology);
+		new Generator().start(univNum, startIndex, seed, ontology, outputPath);
 	}
 
 	/**
@@ -88,24 +97,28 @@ public class Generator {
 	 * @param ontology
 	 *            Ontology url.
 	 */
-	public void start(int univNum, int startIndex, int seed, String ontology) {
+	public void start(int univNum, int startIndex, int seed, String ontology, String outputPath) {
 		this.ontology = ontology;
 		this.univNum = univNum;
 		Lib.setSeed(seed);
-		generate();
+		generate(outputPath);
 	}
 
 
 	/** Begins data generation according to the specification */
-	private void generate() {
+	private void generate(String outputPath) {
 		System.out.println("Started...");
 
 		universities = new University[univNum];
 		for (int i = 0; i < univNum; ++i)
-			universities[i] = new University(this, i);
+			universities[i] = new University(this, i, outputPath);
 
 		for (int i = 0; i < univNum; ++i)
 			universities[i].generateFaculty();
+		
+		for (int i = 0; i < univNum; ++i)
+			universities[i].generateStudents();
+		
 		System.out.println("Completed!");
 	}
 
@@ -154,7 +167,7 @@ public class Generator {
 	}
 
 	public void addSameHomeTownAttributes(Organization o, Writer m_writer, String ID) {
-		int num = getDistributedRandomFromRange(Property.SAMEHOMETOWN_MIN, Property.SAMEHOMETOWN_MAX);
+		int num = getDistributedRandomFromRange(10, Property.SAMEHOMETOWN_MIN, Property.SAMEHOMETOWN_MAX);
 		LinkedList<String> list = getOtherPeopleList(o, ID, num, Property.R_TOWN_OUTSIDE_DEPT);
 		for (int i = 0; i < num; ++i)
 			m_writer.addProperty(Property.INDEX_SAMEHOMETOWN, list.remove(), true);
@@ -169,7 +182,7 @@ public class Generator {
 	}
 	
 	public void addLikeAttributes(Writer m_writer) {
-		int num = getDistributedRandomFromRange(Property.LIKE_MIN, Property.LIKE_MAX);
+		int num = getDistributedRandomFromRange(2, Property.LIKE_MIN, Property.LIKE_MAX);
 		LinkedList<String> list = getInterestList(num);
 		for (int i = 0, flag; i < num; ++i)
 			if ((flag = Lib.getRandomFromRange(0, 3)) == 0)
@@ -181,20 +194,22 @@ public class Generator {
 	}
 
 	public void addFanAttributes(Writer m_writer) {
-		int num = getDistributedRandomFromRange(Class.FAN_MIN, Class.FAN_MAX);
+		int num = getDistributedRandomFromRange(3, Class.FAN_MIN, Class.FAN_MAX);
 		LinkedList<String> list = getLoverList(num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addTypeProperty(list.remove());
 	}
 	
-	private static final int[] bench2 = {2, 4, 8, 16, 32, 64};
-	private static final int[] bench4 = {4, 16, 64, 256, 1024, 4096};
+	private static final int[][] bench = {{0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1}, {1, 2, 4, 8, 16, 32}, 
+											{1, 3, 9, 27, 81, 243}, {1, 4, 16, 64, 256, 1024}, {1, 5, 25, 125, 625, 3125}, 
+											{0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, 
+											{1, 10, 100, 1000, 10000, 100000}};
 
-	private static int getDistributedRandomFromRange(int min, int max) {
-		int num = Lib.getRandomFromRange(1 << (min << 1), (1 << ((max + 1) << 1)) - 1);
-		for (int i = min; i <= max; i++)
-			if (num < bench4[i])
-				return max - i + min;
+	private static int getDistributedRandomFromRange(int base, int min, int max) {
+		int num = Lib.getRandomFromRange(1, bench[base][max - min]);
+		for (int i = 0; i <= max - min; i++)
+			if (num <= bench[base][i])
+				return max - i;
 		System.out.println("error in distributed random");
 		return 0;
 	}

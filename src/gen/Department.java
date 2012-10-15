@@ -63,7 +63,7 @@ public class Department implements Organization {
 		m_publicationNum = 0;
 		
 		m_gen = univ.m_gen;
-		m_writer = new OwlWriter(m_gen.ontology);
+		m_writer = univ.m_writer;//new OwlWriter(m_gen.ontology);
 		m_chair = Lib.getRandomFromRange(0, m_professorNum - 1);
 		m_univIndex = univ.m_index;
 		m_deptIndex = dept;
@@ -78,8 +78,8 @@ public class Department implements Organization {
 //	}
 	
 	public void generateFaculty() {
-		m_writer.start();
-		m_writer.startFile(m_filename);
+//		m_writer.start();
+//		m_writer.startFile(m_filename);
 		
 		m_writer.startSection(Class.INDEX_DEPT, m_ID);
 		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_DEPT, m_deptIndex), true);
@@ -102,8 +102,8 @@ public class Department implements Organization {
 		generateTARAs();
 		generateResearchGroups();
 		generateStaffs();
-		m_writer.endFile();
-		m_writer.end();
+//		m_writer.endFile();
+//		m_writer.end();
 	}
 	
 	private void generateStaffs() {
@@ -378,7 +378,7 @@ public class Department implements Organization {
 			list = m_gen.getCourseList(this, num);
 			while (!list.isEmpty())
 				m_writer.addProperty(Property.INDEX_TAKES, list.remove(), true);
-			if (Lib.getRandomFromRange(0, Class.R_UNDERSTUD_ADVISOR) == 0)
+			if (Lib.getRandomFromRange(0, Property.R_UNDERSTUD_ADVISOR) == 0)
 				m_writer.addProperty(Property.INDEX_ADVISED, getRandomPerson(1, total_facultyNum), true);
 			m_writer.endSection(Class.INDEX_UNDERSTUD);
 		}
@@ -398,7 +398,7 @@ public class Department implements Organization {
 			list = m_gen.getGradCourseList(this, num);
 			while (!list.isEmpty())
 				m_writer.addProperty(Property.INDEX_TAKES, list.remove(), true);
-			if (Lib.getRandomFromRange(0, Class.R_GRADSTUD_ADVISOR) == 0)
+			if (Lib.getRandomFromRange(0, Property.R_GRADSTUD_ADVISOR) == 0)
 				m_writer.addProperty(Property.INDEX_ADVISED, getRandomPerson(1, total_facultyNum), true);
 			m_writer.endSection(Class.INDEX_GRADSTUD);
 		}
