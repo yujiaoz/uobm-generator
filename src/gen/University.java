@@ -10,18 +10,17 @@ public class University implements Organization{
 	College[] m_colleges;
 	
 	/** data file writer */
-	private Writer m_writer;
+	Writer m_writer;
 	Generator m_gen;
 	
 	int m_index;
 	String m_filename;
 	
-	public University(Generator gen, int index) {
+	public University(Generator gen, int index, String outputPath) {
 		m_gen = gen;
 		m_writer = new OwlWriter(gen.ontology);
 		m_index = index;
-//		m_filename = System.getProperty("user.dir") + System.getProperty("file.separator") + "univ" + index;
-		m_filename = "/users/yzhou/workspace/OWLim/preload_generated_uobm/univ" + index;
+		m_filename = outputPath + "univ" + index;
 		
 		m_hasWomanCollege = Lib.getRandomFromRange(0, Class.R_WOMAN_COLLEGE) == 0;
 		m_collegeNum = Lib.getRandomFromRange(Class.COLL_MIN, Class.COLL_MAX);
