@@ -147,16 +147,6 @@ public class Class {
 	public static final int R_GRADSTUD_RA_MIN = 2;
 	/** maximum ratio of graduate students to RA in a department */
 	public static final int R_GRADSTUD_RA_MAX = 3;
-	/**
-	 * average ratio of undergraduate students to undergraduate student advising
-	 * professors
-	 */
-	public static final int R_UNDERSTUD_ADVISOR = 5;
-	/**
-	 * average ratio of graduate students to graduate student advising
-	 * professors
-	 */
-	public static final int R_GRADSTUD_ADVISOR = 1;
 
 	public static final int FAN_MIN = 0;
 	public static final int FAN_MAX = 2;
