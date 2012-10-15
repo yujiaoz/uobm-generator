@@ -20,6 +20,8 @@ public class Lib {
 		HashSet<Integer> hash = new HashSet<Integer>();
 		int index;
 		for (int i = 0; i < num; ++i) {
+			if (n == list.size())
+				break;
 			index = Lib.getRandomFromRange(0, n - 1);
 			while (hash.contains(index))
 				index = Lib.getRandomFromRange(0, n - 1);

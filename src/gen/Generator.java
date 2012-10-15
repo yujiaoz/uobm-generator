@@ -10,11 +10,11 @@ public class Generator {
 	private University[] universities;
 
 	public static void main(String[] args) {
-		int univNum = 100, startIndex = 0, seed = 0;
+		int univNum = 5, startIndex = 0, seed = 0;
 		String ontology = "http://semantics.crl.ibm.com/univ-bench-dl.owl";
-		String outputPath = System.getProperty("user.dir") + System.getProperty("file.separator");
-//		String outputPath = "/users/yzhou/scratch/Ontologies/generated/univ";
-//		String outputPath = "/users/yzhou/workspace/OWLim/preload_generated_uobm/univ";
+//		String outputPath = System.getProperty("user.dir") + System.getProperty("file.separator");
+//		String outputPath = "/users/yzhou/scratch/Ontologies/generated/uobm1/";
+		String outputPath = "/users/yzhou/workspace/OWLim/preload_generated_uobm/";
 
 		try {
 			String arg;
@@ -182,7 +182,7 @@ public class Generator {
 	}
 	
 	public void addLikeAttributes(Writer m_writer) {
-		int num = getDistributedRandomFromRange(2, Property.LIKE_MIN, Property.LIKE_MAX);
+		int num = getDistributedRandomFromRange(3, Property.LIKE_MIN, Property.LIKE_MAX);
 		LinkedList<String> list = getInterestList(num);
 		for (int i = 0, flag; i < num; ++i)
 			if ((flag = Lib.getRandomFromRange(0, 3)) == 0)
@@ -194,7 +194,7 @@ public class Generator {
 	}
 
 	public void addFanAttributes(Writer m_writer) {
-		int num = getDistributedRandomFromRange(3, Class.FAN_MIN, Class.FAN_MAX);
+		int num = getDistributedRandomFromRange(4, Class.FAN_MIN, Class.FAN_MAX);
 		LinkedList<String> list = getLoverList(num);
 		for (int i = 0; i < num; ++i)
 			m_writer.addTypeProperty(list.remove());

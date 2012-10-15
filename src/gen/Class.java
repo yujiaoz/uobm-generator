@@ -130,17 +130,17 @@ public class Class {
 	public static final int VISTPROF_MAX = 2;
 
 	/** minimum ratio of undergraduate students to faculties in a department */
-	public static final int R_UNDERSTUD_FACULTY_MIN = 8;
+	public static final int R_UNDERSTUD_FACULTY_MIN = 11;
 	/** maximum ratio of undergraduate students to faculties in a department */
-	public static final int R_UNDERSTUD_FACULTY_MAX = 14;
+	public static final int R_UNDERSTUD_FACULTY_MAX = 15;
 	/** minimum ratio of graduate students to faculties in a department */
-	public static final int R_GRADSTUD_FACULTY_MIN = 3;
+	public static final int R_GRADSTUD_FACULTY_MIN = 4;
 	/** maximum ratio of graduate students to faculties in a department */
-	public static final int R_GRADSTUD_FACULTY_MAX = 4;
+	public static final int R_GRADSTUD_FACULTY_MAX = 5;
 	// MUST: FACULTY_COURSE_MIN >= R_GRADSTUD_FACULTY_MAX / R_GRADSTUD_TA_MIN;
 
 	/** minimum ratio of graduate students to TA in a department */
-	public static final int R_GRADSTUD_TA_MIN = 3;
+	public static final int R_GRADSTUD_TA_MIN = 2;
 	/** maximum ratio of graduate students to TA in a department */
 	public static final int R_GRADSTUD_TA_MAX = 4;
 	/** minimum ratio of graduate students to RA in a department */

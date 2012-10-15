@@ -147,8 +147,8 @@ public class Department implements Organization {
 	private void generateTARAs() {
 		LinkedList<Integer> list = Lib.getRandomList(m_TANum, m_gradStudNum);
 		LinkedList<Integer> courseList = Lib.getRandomList(m_TANum, m_underCourseNum);
-		for (int i: list) {
-			m_writer.startSection(Class.INDEX_TA, Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, i));
+		for (int i = 0, len = Math.min(list.size(), courseList.size()); i < len; ++i) {
+			m_writer.startSection(Class.INDEX_TA, Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, list.remove()));
 			m_writer.addProperty(Property.INDEX_TA, Class.getOtherID(m_ID, Class.INDEX_COURSE, courseList.remove()), true);
 			m_writer.endSection(Class.INDEX_TA);
 		}

@@ -60,27 +60,27 @@ public class Property {
 	 * about courses
 	 */
 	public static final int FACULTY_COURSE_MIN = 1;
-	public static final int FACULTY_COURSE_MAX = 2;
+	public static final int FACULTY_COURSE_MAX = 3;
 	public static final int FACULTY_GRADCOURSE_MIN = 1;
-	public static final int FACULTY_GRADCOURSE_MAX = 2;
+	public static final int FACULTY_GRADCOURSE_MAX = 3;
 	public static final int UNDERSTUD_COURSE_MIN = 2;
 	public static final int UNDERSTUD_COURSE_MAX = 4;
-	public static final int GRADSTUD_COURSE_MIN = 1;
+	public static final int GRADSTUD_COURSE_MIN = 2;
 	public static final int GRADSTUD_COURSE_MAX = 3;
 
 	public static final int SAMEHOMETOWN_MIN = 0;
 	public static final int SAMEHOMETOWN_MAX = 2;
 	public static final int FRIENDOF_MIN = 1;
-	public static final int FRIENDOF_MAX = 3;
+	public static final int FRIENDOF_MAX = 4;
 	public static final int LIKE_MIN = 0;
 	public static final int LIKE_MAX = 3;
 	
 	public static final int R_TAKES_COURSE_OTHER = 5;
 	public static final int R_TAKES_GRAD_UNDER = 9;
 	public static final int PUB_AUTHOR_MIN = 1;
-	public static final int PUB_AUTHOR_MAX = 5;
+	public static final int PUB_AUTHOR_MAX = 4;
 	
-	public static final int R_FRIEND_OUTSIDE_DEPT = 4;
+	public static final int R_FRIEND_OUTSIDE_DEPT = 1;
 	public static final int R_TOWN_OUTSIDE_DEPT = 0;
 	public static final int R_SAME_AUTHOR = 80;
 	
