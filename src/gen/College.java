@@ -25,7 +25,7 @@ public class College implements Organization{
 		if (m_isWomanCollege)
 			m_womanNum = Lib.getRandomFromRange(230, 270);
 	}
-
+	
 	@Override
 	public void generateFaculty() {
 		if (!m_isWomanCollege) {
@@ -44,14 +44,13 @@ public class College implements Organization{
 	public void generateStudents() {
 		String womanID;
 		for (int i = 0; i < m_womanNum; ++i) {
-			m_writer.startSection(Class.INDEX_PERSON, womanID = Class.getOtherID(m_ID, "woman_student", i));
-			generateWomanStudent(m_ID, womanID, Class.getName("woman_student", i));
+			m_writer.startSection(Class.INDEX_PERSON, womanID = Class.getOtherID(m_ID, Class.INDEX_WOMANSTUDENT, i));
+			generateWomanStudent(m_ID, womanID, Class.getName(Class.INDEX_WOMANSTUDENT, i));
 			m_writer.endSection(Class.INDEX_PERSON);
 		}
 	}
 
-	private void generateWomanStudent(String collegeID, String womanID,
-			String name) {
+	private void generateWomanStudent(String collegeID, String womanID,	String name) {
 		m_writer.addProperty(Property.INDEX_STUDENT, collegeID, true);
 		m_writer.addProperty(Property.INDEX_EMAIL,
 				collegeID.replaceAll("http://www.", name + "@"), false);
@@ -59,8 +58,8 @@ public class College implements Organization{
 		m_writer.addProperty(Property.INDEX_LASTNAME, name + ".last", false);
 		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
 
-		m_gen.addSameHomeTownAttributes(this, m_writer, womanID);
-		m_gen.addIsFriendOfAttributes(this, m_writer, womanID);
+		m_gen.addSameHomeTownAttributes(m_writer, womanID);
+		m_gen.addIsFriendOfAttributes(this, m_writer, womanID, Class.INDEX_WOMANSTUDENT);
 		m_gen.addLikeAttributes(m_writer);
 		m_gen.addFanAttributes(m_writer);
 
@@ -101,6 +100,16 @@ public class College implements Organization{
 	@Override
 	public String getRandomFaculty() {
 		return null;
+	}
+
+	@Override
+	public String getRandomSupportingStaff() {
+		return null;
+	}
+
+	@Override
+	public String getRandomStudent() {
+		return getRandomPeople();
 	}
 
 }

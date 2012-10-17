@@ -83,7 +83,7 @@ public class University implements Organization{
 		else
 			return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
 	}
-
+	
 	@Override
 	public String getRandomPeople() {
 		return getRandomSubOrgan().getRandomPeople();
@@ -101,14 +101,12 @@ public class University implements Organization{
 
 	@Override
 	public String getRandomCourse() {
-		Department dept = m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
-		return dept.getRandomCourse();
+		return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)].getRandomCourse();
 	}
 
 	@Override
 	public String getRandomGradCourse() {
-		Department dept = m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)];
-		return dept.getRandomGradCourse();
+		return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)].getRandomGradCourse();
 	}
 
 	public int getRandomCollege() {
@@ -120,6 +118,16 @@ public class University implements Organization{
 	@Override
 	public String getRandomFaculty() {
 		return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)].getRandomFaculty();
+	}
+
+	@Override
+	public String getRandomSupportingStaff() {
+		return m_depts[Lib.getRandomFromRange(0, m_deptNum - 1)].getRandomSupportingStaff();
+	}
+
+	@Override
+	public String getRandomStudent() {
+		return getRandomSubOrgan().getRandomStudent();
 	}
 
 }

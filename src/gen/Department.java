@@ -24,7 +24,7 @@ public class Department implements Organization {
 	int m_deptIndex, m_univIndex, m_collegeIndex;
 	String m_filename;
 
-	int total_facultyNum, total_studentNum;
+	int total_facultyNum, total_studentNum, total_supportingStaffNum;
 
 	public Department(University univ, int dept, String prefix) {
 		m_groupNum = Lib.getRandomFromRange(Class.RESEARCHGROUP_MIN, Class.RESEARCHGROUP_MAX);
@@ -53,6 +53,7 @@ public class Department implements Organization {
 
 		m_systemsStaffNum = Lib.getRandomFromRange(Class.SYSTEMS_STAFF_MIN, Class.SYSTEMS_STAFF_MAX);
 		m_clericalStaffNum = Lib.getRandomFromRange(Class.CLERICAL_STAFF_MIN, Class.CLERICAL_STAFF_MAX);
+		total_supportingStaffNum = m_systemsStaffNum + m_clericalStaffNum;
 		m_otherStaffNum = Lib.getRandomFromRange(Class.OTHER_STAFF_MIN, Class.OTHER_STAFF_MAX);
 		
 		/*
@@ -63,7 +64,8 @@ public class Department implements Organization {
 		m_publicationNum = 0;
 		
 		m_gen = univ.m_gen;
-		m_writer = univ.m_writer;//new OwlWriter(m_gen.ontology);
+		if (m_gen.outputMerged) m_writer = univ.m_writer;
+		else m_writer = new OwlWriter(m_gen.ontology);
 		m_chair = Lib.getRandomFromRange(0, m_professorNum - 1);
 		m_univIndex = univ.m_index;
 		m_deptIndex = dept;
@@ -72,19 +74,25 @@ public class Department implements Organization {
 	}
 
 	@Override
-//	public void generateFaculty() {
-//		generateFaculty();
-//		generateStudents();
-//	}
-	
 	public void generateFaculty() {
-//		m_writer.start();
-//		m_writer.startFile(m_filename);
+		if (!Generator.outputMerged) {
+			m_writer.start();
+			m_writer.startFile(m_filename);
+		}
 		
 		m_writer.startSection(Class.INDEX_DEPT, m_ID);
 		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_DEPT, m_deptIndex), true);
 		m_writer.addProperty(Property.INDEX_SUBORG, Class.getCollegeID(m_univIndex, m_collegeIndex), true);
 		m_writer.endSection(Class.INDEX_DEPT);
+		
+		String ID;
+		m_writer.startSection(Class.INDEX_CHAIR, ID = Class.getOtherID(m_ID, Class.INDEX_CHAIR, m_deptIndex));
+		m_writer.addProperty(Property.INDEX_HEAD, m_ID, true);
+		m_gen.addSameHomeTownAttributes(m_writer, ID);
+		m_gen.addIsFriendOfAttributes(this, m_writer, ID, Class.INDEX_FACULTY);
+		m_gen.addLikeAttributes(m_writer);
+		m_gen.addFanAttributes(m_writer);
+		m_writer.endSection(Class.INDEX_CHAIR);
 		
 		generateProfs();
 		generateAssoProfs();
@@ -102,8 +110,11 @@ public class Department implements Organization {
 		generateTARAs();
 		generateResearchGroups();
 		generateStaffs();
-//		m_writer.endFile();
-//		m_writer.end();
+		
+		if (!Generator.outputMerged) {
+			m_writer.endFile();
+			m_writer.end();
+		}
 	}
 	
 	private void generateStaffs() {
@@ -113,7 +124,7 @@ public class Department implements Organization {
 			m_writer.startSection(Class.INDEX_CLERICALSTAFF, ID);
 			if (Lib.getRandomFromRange(0, 2) != 0) m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
 			else m_writer.addProperty(Property.INDEX_MEMBER, m_ID, true);
-			generatePerson(ID, Class.getName(Class.INDEX_CLERICALSTAFF, i));
+			generatePerson(ID, Class.getName(Class.INDEX_CLERICALSTAFF, i), Class.INDEX_SUPPORTINGSTAFF);
 			m_writer.endSection(Class.INDEX_CLERICALSTAFF);
 		}
 			
@@ -121,7 +132,7 @@ public class Department implements Organization {
 			ID = Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, i);
 			m_writer.startSection(Class.INDEX_SYSTEMSSTAFF, ID);
 			m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
-			generatePerson(ID, Class.getName(Class.INDEX_SYSTEMSSTAFF, i));
+			generatePerson(ID, Class.getName(Class.INDEX_SYSTEMSSTAFF, i), Class.INDEX_SUPPORTINGSTAFF);
 			m_writer.endSection(Class.INDEX_SYSTEMSSTAFF);
 		}
 		
@@ -129,7 +140,7 @@ public class Department implements Organization {
 			ID = Class.getOtherID(m_ID, Class.INDEX_OTHERSTAFF, i);
 			m_writer.startSection(Class.INDEX_PERSON, ID);
 			m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
-			generatePerson(ID, Class.getName(Class.INDEX_OTHERSTAFF, i));
+			generatePerson(ID, Class.getName(Class.INDEX_OTHERSTAFF, i), Class.INDEX_OTHERSTAFF);
 			m_writer.endSection(Class.INDEX_PERSON);
 		}
 	}
@@ -246,28 +257,28 @@ public class Department implements Organization {
 			m_writer.endSection(Class.INDEX_COURSE);
 			if (sameIndividual != null) {
 				m_writer.startSection(Class.INDEX_PERSON, sameIndividual);
-				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual);
+				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual, Class.INDEX_FACULTY);
 				m_writer.endSection(Class.INDEX_PERSON);
 			}
 		}
 		
 		for (int i = 0; i < m_gradCourseNum; ++i) {
-			m_writer.startSection(Class.INDEX_GRADCOURSE, Class.getOtherID(m_ID, Class.INDEX_GRADCOURSE, i));
+			m_writer.startSection(Class.INDEX_COURSE, Class.getOtherID(m_ID, Class.INDEX_GRADCOURSE, i));
 			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_GRADCOURSE, i), true);
 			sameIndividual = assignSameIndividual();
-			m_writer.endSection(Class.INDEX_GRADCOURSE);
+			m_writer.endSection(Class.INDEX_COURSE);
 			if (sameIndividual != null) {
 				m_writer.startSection(Class.INDEX_PERSON, sameIndividual);
-				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual);
+				m_gen.addIsFriendOfAttributes(this, m_writer, sameIndividual, Class.INDEX_FACULTY);
 				m_writer.endSection(Class.INDEX_PERSON);
 			}
 		}
 	}
 
-	private void generatePerson(String ID, String name) {
+	private void generatePerson(String ID, String name, int classType) {
 		m_writer.addProperty(Property.INDEX_EMAIL, ID.replaceAll("http://www.", name + "@"), false);
 		m_writer.addProperty(Property.INDEX_FIRSTNAME, name + ".first", false);
-		m_writer.addProperty(Property.INDEX_FIRSTNAME, name + ".second", false);
+		m_writer.addProperty(Property.INDEX_LASTNAME, name + ".second", false);
 		m_writer.addProperty(Property.INDEX_TELE, "xxx-xxx-xxxx", false);
 
 		if (Lib.getRandomFromRange(0, 1) == 0)
@@ -275,14 +286,14 @@ public class Department implements Organization {
 		else
 			m_writer.addTypeProperty(RdfWriter.EntityPrefix + "Woman");
 
-		m_gen.addSameHomeTownAttributes(this, m_writer, ID);
-		m_gen.addIsFriendOfAttributes(this, m_writer, ID);
+		m_gen.addSameHomeTownAttributes(m_writer, ID);
+		m_gen.addIsFriendOfAttributes(this, m_writer, ID, classType);
 		m_gen.addLikeAttributes(m_writer);
 		m_gen.addFanAttributes(m_writer);
 	}
 	
 	private void generateFaculty(String ID, String name) {
-		generatePerson(ID, name);
+		generatePerson(ID, name, Class.INDEX_FACULTY);
 		
 		if (Lib.getRandomFromRange(0, 2) == 0) m_writer.addProperty(Property.INDEX_WORKS, m_ID, true);
 		else m_writer.addProperty(Property.INDEX_MEMBER, m_ID, true);
@@ -371,7 +382,7 @@ public class Department implements Organization {
 		String ID;
 		for (int i = 0; i < m_underStudNum; ++i) {
 			m_writer.startSection(Class.INDEX_UNDERSTUD, ID = Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, i));
-			generatePerson(ID, Class.getName(Class.INDEX_UNDERSTUD, i));
+			generatePerson(ID, Class.getName(Class.INDEX_UNDERSTUD, i), Class.INDEX_STUDENT);
 			m_writer.addProperty(Property.INDEX_ENROLL, m_ID, true);
 			m_writer.addProperty(Property.INDEX_MAJOR, m_gen.getRandomMajor(), true);
 			num = Lib.getRandomFromRange(Property.UNDERSTUD_COURSE_MIN, Property.UNDERSTUD_COURSE_MAX);
@@ -390,7 +401,7 @@ public class Department implements Organization {
 		String ID;
 		for (int i = 0; i < m_gradStudNum; ++i) {
 			m_writer.startSection(Class.INDEX_GRADSTUD, ID = Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, i));
-			generatePerson(ID, Class.getName(Class.INDEX_GRADSTUD, i));
+			generatePerson(ID, Class.getName(Class.INDEX_GRADSTUD, i), Class.INDEX_STUDENT);
 			m_writer.addProperty(Property.INDEX_ENROLL, m_ID, true);
 			m_writer.addProperty(Property.INDEX_MAJOR, m_gen.getRandomMajor(), true);
 			m_writer.addProperty(Property.INDEX_UNDERDEGREE, m_gen.getUnivInst(), true);
@@ -406,7 +417,7 @@ public class Department implements Organization {
 	
 	@Override
 	public String getRandomPeople() {
-		return getRandomPerson(1, total_facultyNum + total_studentNum);
+		return getRandomPerson(1, total_facultyNum + total_studentNum + total_supportingStaffNum + m_otherStaffNum);
 	}
 	
 	public String getRandomPerson(int min, int max) {
@@ -419,8 +430,8 @@ public class Department implements Organization {
 				index -= m_professorNum;
 				return Class.getOtherID(m_ID, Class.INDEX_ASSOPROF, index - 1);
 			}
-			
 			index -= m_professorNum + m_assoProfNum;
+			
 			if (index <= m_asstProfNum)
 				return Class.getOtherID(m_ID, Class.INDEX_ASSTPROF, index - 1);
 			index -= m_asstProfNum;
@@ -428,21 +439,24 @@ public class Department implements Organization {
 		}
 		else {
 			index -= total_facultyNum;
+			
 			if (index <= total_studentNum) { 
 				if (index <= m_gradStudNum)
 					return Class.getOtherID(m_ID, Class.INDEX_GRADSTUD, index - 1);
 				index -= m_gradStudNum;
 				return Class.getOtherID(m_ID, Class.INDEX_UNDERSTUD, index - 1);
 			}
-				
 			index -= total_studentNum;
-			if (index <= m_systemsStaffNum)
-				return Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, index - 1);
-			index -= m_systemsStaffNum;
 			
-			if (index <= m_clericalStaffNum) 
+			if (index <= total_supportingStaffNum) {
+				if (index <= m_systemsStaffNum)
+					return Class.getOtherID(m_ID, Class.INDEX_SYSTEMSSTAFF, index - 1);
+				index -= m_systemsStaffNum;
+					
 				return Class.getOtherID(m_ID, Class.INDEX_CLERICALSTAFF, index - 1);
-			index -= m_clericalStaffNum;
+			}
+			index -= total_supportingStaffNum;
+			
 			
 			if (index > m_otherStaffNum) {
 				System.err.println("error");
@@ -482,6 +496,17 @@ public class Department implements Organization {
 	@Override
 	public String getRandomFaculty() {
 		return getRandomPerson(1, total_facultyNum);
+	}
+
+	@Override
+	public String getRandomSupportingStaff() {
+		int index = total_facultyNum + total_studentNum;
+		return getRandomPerson(index + 1, index + total_supportingStaffNum);
+	}
+
+	@Override
+	public String getRandomStudent() {
+		return getRandomPerson(total_facultyNum + 1, total_facultyNum + total_studentNum);
 	}
 
 }

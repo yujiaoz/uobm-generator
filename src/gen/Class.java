@@ -37,6 +37,8 @@ public class Class {
 	static final int INDEX_SAMEINDIVIDUAL = 27;
 	static final int INDEX_OTHERSTAFF = 28;
 	static final int INDEX_WOMANCOLLEGE = 29;
+	static final int INDEX_WOMANSTUDENT = 30;
+	static final int INDEX_SUPPORTINGSTAFF = 31;
 
 	/** class name strings */
 	public static final String[] TOKEN = { "University", // CS_C_UNIV
@@ -45,7 +47,7 @@ public class Class {
 			"Person", // CS_C_PERSON
 			"Man", // CS_C_MAN
 			"Woman", // CS_C_WOMAN
-			"Faculty", // CS_C_FACULTY
+			"Faculty", // CS_C_FACULTYCHAIR
 			"Professor", // CS_C_PROF
 			"FullProfessor", // CS_C_FULLPROF
 			"AssociateProfessor", // CS_C_ASSOPROF
@@ -68,7 +70,9 @@ public class Class {
 			"ClericalStaff", 
 			"SameIndividual", 
 			"other_staff", 
-			"WomanCollege"
+			"WomanCollege", 
+			"woman_student",
+			"SupportingStaff"
 	};
 	/** number of classes */
 	static final int LENGTH = TOKEN.length;
@@ -93,7 +97,7 @@ public class Class {
 	/** minimum number of departments in a university */
 	public static final int DEPT_MIN = 15;
 	/** maximum number of departments in a university */
-	public static final int DEPT_MAX = 25; // must: DEPT_MAX - DEPT_MIN + 1 <> 2
+	public static final int DEPT_MAX = 23; // must: DEPT_MAX - DEPT_MIN + 1 <> 2
 											// ^ n
 	/** minimum number of colleges in a university */
 	public static final int COLL_MIN = 1;
@@ -105,7 +109,7 @@ public class Class {
 	/** minimum number of research groups in a department */
 	public static final int RESEARCHGROUP_MIN = 8;
 	/** maximum number of research groups in a department */
-	public static final int RESEARCHGROUP_MAX = 12;
+	public static final int RESEARCHGROUP_MAX = 15;
 
 	// faculty number: 30-42
 	/** minimum number of full professors in a department */
@@ -130,9 +134,9 @@ public class Class {
 	public static final int VISTPROF_MAX = 2;
 
 	/** minimum ratio of undergraduate students to faculties in a department */
-	public static final int R_UNDERSTUD_FACULTY_MIN = 11;
+	public static final int R_UNDERSTUD_FACULTY_MIN = 12;
 	/** maximum ratio of undergraduate students to faculties in a department */
-	public static final int R_UNDERSTUD_FACULTY_MAX = 15;
+	public static final int R_UNDERSTUD_FACULTY_MAX = 16;
 	/** minimum ratio of graduate students to faculties in a department */
 	public static final int R_GRADSTUD_FACULTY_MIN = 4;
 	/** maximum ratio of graduate students to faculties in a department */

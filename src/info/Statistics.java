@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 public class Statistics {
 
 	public static void main(String... args) {
+//		OWLOntology ontology = loadOntology("/users/yzhou/workspace/QueryAnswering/input/uobm/univ5.owl");
 		OWLOntology ontology = loadOntology("/users/yzhou/workspace/QueryAnswering/input/uobm/univ1_generated.owl");
 		HashMap<String, Integer> stat = new HashMap<String, Integer>();
 		int crossLink = 0, cross1 = 0, cross2 = 0, cross3 = 0, cross4 = 0;
@@ -59,10 +60,10 @@ public class Statistics {
 			
 		System.out.println("CorssLink " + crossLink);
 		for (Entry<String, Integer> entry: stat.entrySet()) 
-//			if (entry.getKey().contains("hasSameHomeTown"))
+//			if (entry.getKey().contains("hasSameHomeTown") || entry.getKey().contains("isFriendOf"))
 				System.out.println(entry.getKey() + " " + entry.getValue());
 		
-//		System.out.println(cross1 + " " + cross2 + " " + cross3 + " " + cross4);
+		System.out.println(cross1 + " " + cross2 + " " + cross3 + " " + cross4);
 	}
 
 	public static OWLOntology loadOntology(String fileName) {

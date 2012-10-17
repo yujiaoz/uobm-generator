@@ -20,4 +20,8 @@ public interface Organization {
 	
 	public String getRandomFaculty();
 	
+	public String getRandomSupportingStaff();
+	
+	public String getRandomStudent();
+	
 }
