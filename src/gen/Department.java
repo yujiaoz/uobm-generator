@@ -64,7 +64,7 @@ public class Department implements Organization {
 		m_publicationNum = 0;
 		
 		m_gen = univ.m_gen;
-		if (m_gen.outputMerged) m_writer = univ.m_writer;
+		if (Generator.outputMerged) m_writer = univ.m_writer;
 		else m_writer = new OwlWriter(m_gen.ontology);
 		m_chair = Lib.getRandomFromRange(0, m_professorNum - 1);
 		m_univIndex = univ.m_index;
@@ -362,8 +362,12 @@ public class Department implements Organization {
 	}
 
 	private void generateVistProfs() {
-		// TODO generateVistProfs Auto-generated method stub
-
+		String profID;
+		for (int i = 0; i < m_vistProfNum; ++i) {
+			profID = Class.getOtherID(m_ID, Class.INDEX_VISTPROF, i);
+			m_writer.startSection(Class.INDEX_VISTPROF, profID);
+			m_writer.endSection(Class.INDEX_VISTPROF);
+		}
 	}
 
 	private void generateLectures() {

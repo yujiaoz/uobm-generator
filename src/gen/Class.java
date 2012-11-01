@@ -52,7 +52,7 @@ public class Class {
 			"FullProfessor", // CS_C_FULLPROF
 			"AssociateProfessor", // CS_C_ASSOPROF
 			"AssistantProfessor", // CS_C_ASSTPROF
-			"VistingProfessor", // CS_C_VISTPROF
+			"VisitingProfessor", // CS_C_VISTPROF
 			"Lecturer", // CS_C_LECTURER
 			"Student", // CS_C_STUDENT
 			"UndergraduateStudent", // CS_C_UNDERSTUD
@@ -131,7 +131,7 @@ public class Class {
 	/** minimum number of visting professors in a department */
 	public static final int VISTPROF_MIN = 0;
 	/** maximum number of visting professors in a department */
-	public static final int VISTPROF_MAX = 2;
+	public static final int VISTPROF_MAX = 6;
 
 	/** minimum ratio of undergraduate students to faculties in a department */
 	public static final int R_UNDERSTUD_FACULTY_MIN = 12;

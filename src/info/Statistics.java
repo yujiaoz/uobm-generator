@@ -21,7 +21,7 @@ public class Statistics {
 
 	public static void main(String... args) {
 //		OWLOntology ontology = loadOntology("/users/yzhou/workspace/QueryAnswering/input/uobm/univ5.owl");
-		OWLOntology ontology = loadOntology("/users/yzhou/workspace/QueryAnswering/input/uobm/univ1_generated.owl");
+		OWLOntology ontology = loadOntology("/users/yzhou/workspace/QueryAnswering/input/uobm/univ5_generated_merged.owl");
 		HashMap<String, Integer> stat = new HashMap<String, Integer>();
 		int crossLink = 0, cross1 = 0, cross2 = 0, cross3 = 0, cross4 = 0;
 
