@@ -1,0 +1,63 @@
+Started...
+Completed!
+files loaded in 11.078
+Queries run in 1059 ms.
+4 1.059
+done in 12.14
+loading time: 11.078
+answering time: 1.059
+done in 12.14
+-------------------------------------------------\n
+files loaded in 17.034
+Queries run in 2673 ms.
+4 2.673
+done in 19.709
+loading time: 17.034
+answering time: 2.673
+done in 19.709
+-------------------------------------------------\n
+Started...
+Completed!
+files loaded in 73.876
+Queries run in 2308 ms.
+4 2.308
+done in 76.188
+loading time: 73.876
+answering time: 2.308
+done in 76.188
+-------------------------------------------------\n
+files loaded in 515.64
+Queries run in 198519 ms.
+4 198.519
+done in 714.173
+loading time: 515.64
+answering time: 198.519
+done in 714.173
+-------------------------------------------------\n
+files loaded in 418.078
+Queries run in 197723 ms.
+4 197.723
+done in 615.809
+loading time: 418.078
+answering time: 197.723
+done in 615.809
+-------------------------------------------------\n
+Started...
+Completed!
+files loaded in 146.003
+Queries run in 4917 ms.
+4 4.917
+done in 150.946
+loading time: 146.003
+answering time: 4.917
+done in 150.946
+-------------------------------------------------\n
+files loaded in 2667.867
+Queries run in 1253111 ms.
+4 1253.111
+done in 3920.988
+loading time: 2667.867
+answering time: 1253.111
+done in 3920.988
+DONE
+

@@ -1,95 +1,109 @@
-"CorssLink",18021
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#takesCourse>",32593
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isFriendOf>",26962
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasSameHomeTownWith>",13420
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#publicationAuthor>",12701
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#love>",10066
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#like>",9994
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#UndergraduateStudent>",9027
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Man>",6599
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Woman>",6506
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Publication>",3192
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isAdvisedBy>",2854
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#GraduateStudent>",2849
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasMajor>",2849
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#teacherOf>",2414
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TennisFan>",1557
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballFan>",1531
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallFan>",1506
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingFan>",1495
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SportsLover>",1489
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballLover>",1479
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallLover>",1456
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SportsFan>",1422
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingLover>",1403
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#GraduateCourse>",1213
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Course>",1201
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasUndergraduateDegreeFrom>",800
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasDoctoralDegreeFrom>",800
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isMemberOf>",800
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#worksFor>",429
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SystemsStaff>",391
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ResearchAssistant>",390
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TeachingAssistant>",387
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#teachingAssistantOf>",387
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#subOrganizationOf>",351
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Person>",350
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ResearchGroup>",323
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AssociateProfessor>",267
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isStudentOf>",261
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AssistantProfessor>",212
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#FullProfessor>",190
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Lecturer>",131
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isTaughtBy>",89
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ClericalStaff>",38
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isHeadOf>",23
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Department>",23
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Insterest>",8
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#College>",5
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Music>",3
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Sports>",3
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Media_Arts_And_ciencesClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Modern_ArtsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Medieval_ArtsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ReligionsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Biomedical_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TennisClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Civil_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#EnglishClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#University>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#MathematicsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Computer_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Industry_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ChemistryClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AstronomyClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#MusicsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#GeosciencesClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#HistoryClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Mechanical_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Performing_ArtsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#DramaClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PhilosophyClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#HumanitiesClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Theatre_and_DanceClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#LinguisticsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Asian_ArtsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#EconomicsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Materials_ScienceClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Materical_Science_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#StatisticsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Computer_ScienceClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Latin_ArtsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Petroleuml_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PsychologyClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Modern_LanguagesClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Aeronautical_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Electrical_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Chemical_EngineeringClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PhysicsClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ArchitectureClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AnthropologyClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Marine_ScienceClass>",1
-"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BiologyClass>",1
+	
+"CorssLink"	126255
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Aeronautical_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AnthropologyClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ArchitectureClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Article>"	4313
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Asian_ArtsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AssistantProfessor>"	870
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AssociateProfessor>"	1242
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#AstronomyClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballFan>"	1725
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BaseballLover>"	3460
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallFan>"	1743
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BasketBallLover>"	3481
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#BiologyClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Biomedical_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Book>"	4229
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Chair>"	103
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Chemical_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ChemistryClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Civil_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ClericalStaff>"	155
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#College>"	20
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Computer_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Computer_ScienceClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ConferencePaper>"	4155
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Course>"	13518
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Department>"	103
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#DramaClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#EconomicsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Electrical_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#EnglishClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#enrollIn>"	65922
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#FullProfessor>"	857
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#GeosciencesClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#GraduateStudent>"	16016
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasDoctoralDegreeFrom>"	3575
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasMajor>"	65922
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasMasterDegreeFrom>"	3575
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasSameHomeTownWith>"	8088
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#hasUndergraduateDegreeFrom>"	19591
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#HistoryClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#HumanitiesClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Industry_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Insterest>"	8
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isAdvisedBy>"	24267
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isCrazyAbout>"	17738
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isFriendOf>"	184126
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isHeadOf>"	206
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isMemberOf>"	2395
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isStudentOf>"	264
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#isTaughtBy>"	152
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#JournalArtical>"	4335
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Latin_ArtsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Lecturer>"	606
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#like>"	35388
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#LinguisticsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#love>"	17928
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Man>"	36266
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Manual>"	4285
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Marine_ScienceClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Materials_ScienceClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Materical_Science_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#MathematicsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Mechanical_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Media_Arts_And_ciencesClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Medieval_ArtsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Modern_ArtsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Modern_LanguagesClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Music>"	3
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#MusicsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Performing_ArtsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Person>"	1947
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Petroleuml_EngineeringClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PhilosophyClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PhysicsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#PsychologyClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Publication>"	4227
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#publicationAuthor>"	149067
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ReligionsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ResearchAssistant>"	4249
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#ResearchGroup>"	1202
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Software>"	4326
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Specification>"	4177
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Sports>"	3
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SportsFan>"	1830
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SportsLover>"	3426
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#StatisticsClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#subOrganizationOf>"	1326
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingFan>"	1812
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SwimmingLover>"	3458
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#SystemsStaff>"	1737
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#takesCourse>"	189490
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#teacherOf>"	13518
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TeachingAssistant>"	3859
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#teachingAssistantOf>"	3859
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TechnicalReport>"	4264
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TennisClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#TennisFan>"	1765
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Theatre_and_DanceClass>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#UndergraduateStudent>"	49906
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#University>"	5
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#UnofficialPublication>"	4282
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#Woman>"	36654
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#WomanCollege>"	1
+"<http://semantics.crl.ibm.com/univ-bench-dl.owl#worksFor>"	4603
