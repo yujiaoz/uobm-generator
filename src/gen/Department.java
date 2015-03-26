@@ -81,7 +81,7 @@ public class Department implements Organization {
 		}
 		
 		m_writer.startSection(Class.INDEX_DEPT, m_ID);
-		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_DEPT, m_deptIndex), true);
+		m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_DEPT, m_deptIndex), false);
 		m_writer.addProperty(Property.INDEX_SUBORG, Class.getCollegeID(m_univIndex, m_collegeIndex), true);
 		m_writer.endSection(Class.INDEX_DEPT);
 		
@@ -252,7 +252,7 @@ public class Department implements Organization {
 		String sameIndividual;
 		for (int i = 0; i < m_underCourseNum; ++i) {
 			m_writer.startSection(Class.INDEX_COURSE, Class.getOtherID(m_ID, Class.INDEX_COURSE, i));
-			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_COURSE, i), true);
+			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_COURSE, i), false);
 			sameIndividual = assignSameIndividual();
 			m_writer.endSection(Class.INDEX_COURSE);
 			if (sameIndividual != null) {
@@ -264,7 +264,7 @@ public class Department implements Organization {
 		
 		for (int i = 0; i < m_gradCourseNum; ++i) {
 			m_writer.startSection(Class.INDEX_COURSE, Class.getOtherID(m_ID, Class.INDEX_GRADCOURSE, i));
-			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_GRADCOURSE, i), true);
+			m_writer.addProperty(Property.INDEX_NAME, Class.getName(Class.INDEX_GRADCOURSE, i), false);
 			sameIndividual = assignSameIndividual();
 			m_writer.endSection(Class.INDEX_COURSE);
 			if (sameIndividual != null) {

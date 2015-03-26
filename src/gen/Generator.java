@@ -5,7 +5,9 @@ import java.util.*;
 
 public class Generator {
 
-	static boolean outputMerged = true;
+	static final String FILE_SEPARATOR = System.getProperty("file.separator");
+	static boolean outputMerged = false;
+	static boolean importTBox = false;
 	String ontology;
 
 	private int univNum;
@@ -14,9 +16,7 @@ public class Generator {
 	public static void main(String[] args) {
 		int univNum = 1, startIndex = 0, seed = 0;
 		String ontology = "http://semantics.crl.ibm.com/univ-bench-dl.owl";
-		String outputPath = System.getProperty("user.dir") + System.getProperty("file.separator");
-//		String outputPath = "/users/yzhou/scratch/Ontologies/generated/uobm1/";
-//		String outputPath = "/users/yzhou/workspace/OWLim/preload_generated_uobm/";
+		String outputPath = System.getProperty("user.dir") + FILE_SEPARATOR;
 
 		try {
 			String arg;
@@ -47,14 +47,10 @@ public class Generator {
 							throw new NumberFormatException();
 					} else
 						throw new NumberFormatException();
-				} else if (arg.equals("-merge")){
-					arg = args[i++];
-					if (arg.equals("true"))
-						outputMerged = true;
-					else if (arg.equals("false"))
-						outputMerged = false;
-					else 
-						throw new Exception("-merge true or -merge false");
+				} else if (arg.equals("-merge")) {
+					outputMerged = true;
+				} else if (args.equals("-importTBox")) {
+					importTBox = true; 
 				} else if (arg.equals("-onto")) {
 					if (i < args.length) {
 						arg = args[i++];
@@ -64,7 +60,10 @@ public class Generator {
 				} else if (arg.equals("-path")) {
 					if (i < args.length) {
 						arg = args[i++];
-						outputPath = arg;
+						if (arg.endsWith(FILE_SEPARATOR))
+							outputPath = arg;
+						else 
+							outputPath = arg + FILE_SEPARATOR; 
 					} else
 						throw new Exception();
 				} else

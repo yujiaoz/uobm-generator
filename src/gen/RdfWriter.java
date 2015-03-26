@@ -20,6 +20,7 @@
 package gen;
 
 import java.io.*;
+import java.util.HashSet;
 
 public abstract class RdfWriter implements Writer {
 	/** abbreviation of univ-bench ontology namesapce */
@@ -78,9 +79,29 @@ public abstract class RdfWriter implements Writer {
 			s = "<" + T_RDF_PREFIX + "RDF";
 			out.println(s);
 			writeHeader();
+			declareProperties(); 
 		} catch (IOException e) {
 			System.out.println("Create file failure!");
 		}
+	}
+
+	private void declareProperties() {
+		int[] dataTypeProperties = {Property.INDEX_EMAIL, Property.INDEX_FIRSTNAME, Property.INDEX_LASTNAME, 
+				Property.INDEX_NAME, Property.INDEX_TELE};
+		StringBuilder sb = new StringBuilder();
+		HashSet<Integer> visited = new HashSet<Integer>(); 
+		for (int index: dataTypeProperties) {
+			visited.add(index); 
+			sb.append("<owl:DatatypeProperty rdf:about=\"http://semantics.crl.ibm.com/univ-bench-dl.owl#").append(Property.TOKEN[index]).append("\"/>");
+			out.println(sb.toString());
+			sb.setLength(0);
+		}
+		for (int index = 0; index <  Property.TOKEN.length; ++index)
+			if (!visited.contains(index)) {
+				sb.append("<owl:ObjectProperty rdf:about=\"http://semantics.crl.ibm.com/univ-bench-dl.owl#").append(Property.TOKEN[index]).append("\"/>");
+				out.println(sb.toString()); 
+				sb.setLength(0);
+			}
 	}
 
 	/**
@@ -170,7 +191,8 @@ public abstract class RdfWriter implements Writer {
 
 	public void addTypeProperty(String value) {
 		String s;
-		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\"" 					+ value + "\" />";
+		s = "   <" + T_RDF_TYPE + T_SPACE + T_RDF_RES + "=\""
+				+ value + "\" />";
 		out.println(s);
 	}
 
@@ -199,4 +221,5 @@ public abstract class RdfWriter implements Writer {
 	 * Writes the header part.
 	 */
 	abstract void writeHeader();
+	
 }
